@@ -1,0 +1,10 @@
+# Python 3.11
+# Create venv with: python3.11 -m venv venv
+# Activate venv: source venv/bin/activate
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+pandas
+textblob
+openpyxl
+openai>=1.30.0
+python-dotenv
