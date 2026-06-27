@@ -1,0 +1,434 @@
+{
+  "merchant_name": "Betking Online Ltd.",
+  "pipeline_timestamp": "2026-04-21T18:08:44.092044+00:00",
+  "pipeline_duration_seconds": 114.3,
+  "final_decision": "MANUAL_REVIEW",
+  "decision_rationale": "The decision to escalate to manual review is based on Agent 3 indicating a high risk level and that the TPB threshold has been exceeded. Although Agent 5 has a medium severity and a low risk score, the combination of high risk from Agent 3 necessitates further human analysis.",
+  "escalation_reasons": [
+    "Agent 3 risk level is HIGH",
+    "Agent 3 TPB threshold exceeded"
+  ],
+  "required_actions": [
+    "Conduct a detailed compliance review",
+    "Assess additional information on the merchant's operations"
+  ],
+  "agent_outputs": {
+    "agent_2_validation": {
+      "validated_profile": {
+        "merchant_name": "Betking Online Ltd.",
+        "address": "123 Main St",
+        "website": "https://m.betking.com/",
+        "industry": "Gambling",
+        "mcc": "7995",
+        "additional_details": null,
+        "mcc_description": "Betting, including Lottery Tickets, Casinos, and Gambling",
+        "data_quality_score": 75,
+        "status": "partial"
+      },
+      "data_quality_report": {
+        "score": 75,
+        "status": "partial",
+        "missing_fields": [],
+        "issues": [],
+        "flagged_items": [
+          {
+            "field": "mcc",
+            "mcc": "7995",
+            "risk_level": "High",
+            "risk_score": 95,
+            "reason": "Mapped MCC 7995 flagged as High (score=95)",
+            "code": "HIGH_RISK_MCC"
+          }
+        ]
+      },
+      "flagged_items": [
+        {
+          "field": "mcc",
+          "mcc": "7995",
+          "risk_level": "High",
+          "risk_score": 95,
+          "reason": "Mapped MCC 7995 flagged as High (score=95)",
+          "code": "HIGH_RISK_MCC"
+        }
+      ]
+    },
+    "agent_3_risk": {
+      "merchant_name": "Betking Online Ltd.",
+      "industry_risk_category": "Gambling",
+      "risk_level": "HIGH",
+      "risk_score": 95,
+      "high_risk_flag": true,
+      "risk_review_required": true,
+      "compliance_review_required": true,
+      "tpb_threshold_exceeded": true,
+      "required_questionnaires": [
+        "Q-001",
+        "Q-003",
+        "Q-004",
+        "Q-005",
+        "Q-008"
+      ],
+      "applicable_playbooks": [
+        "PB-005",
+        "PB-013"
+      ],
+      "questionnaire_details": [
+        "Q-001",
+        "Q-003",
+        "Q-004",
+        "Q-005",
+        "Q-008"
+      ],
+      "playbook_details": [
+        "PB-005",
+        "PB-013"
+      ],
+      "overall_decision": "ESCALATE \u2013 Compliance & Risk Review Required",
+      "total_rules_triggered": 5,
+      "assessment_date": "2026-04-21 23:36:59",
+      "raw_output": "Here is the complete structured Risk & Compliance Assessment for the merchant **Betking Online Ltd.**:\n\n### Assessment Metadata\n- **Agent**: Agent 3 \u2013 Risk & Compliance Assessment\n- **Merchant Name**: Betking Online Ltd.\n- **Industry**: Gambling\n- **Assessment Date**: 2026-04-21\n- **Assessment Version**: 1.0\n\n### Risk Assessment\n- **Risk Level**: High\n- **Risk Score**: 95\n- **High Risk Flag**: Yes\n- **Risk Review Required**: Yes\n\n### Compliance Review\n- **Compliance Review Required**: Yes\n- **TPB Review Required**: Yes\n\n### Questionnaires\n- **Questionnaires Required**: Yes\n- **Questionnaire Details**:\n  - Q-001: [Standard Merchant Onboarding Questionnaire](https://internal.portal/questionnaires/Q-001)\n  - Q-003: [High-Risk Industry Questionnaire](https://internal.portal/questionnaires/Q-003)\n  - Q-004: [TPB (Third Party Business) Questionnaire](https://internal.portal/questionnaires/Q-004)\n  - Q-005: [PCI DSS Compliance Questionnaire](https://internal.portal/questionnaires/Q-005)\n  - Q-008: [Gambling Regulatory Compliance Questionnaire](https://internal.portal/questionnaires/Q-008)\n\n### Playbooks\n- **Playbooks Applicable**: Yes\n- **Playbook Details**:\n  - PB-005: [Online Gambling & Gaming Playbook](https://internal.portal/playbooks/PB-005)\n  - PB-013: [TPB / Payment Facilitator Playbook](https://internal.portal/playbooks/PB-013)\n\n### Decision Summary\n- **Total Rules Triggered**: 5\n- **Overall Decision**: ESCALATE \u2013 Compliance & Risk Review Required\n\nThis assessment indicates that the merchant is classified as high risk, requiring both compliance and risk reviews, along with several mandatory questionnaires and applicable playbooks."
+    },
+    "agent_4_documents": {
+      "merchant_name": "Betking Online Ltd.",
+      "risk_output": {
+        "merchant_type": "New Merchant",
+        "risk_review": "Full Review",
+        "documents_required": [
+          "Full financials",
+          "Bank statement",
+          "Interim financials",
+          "Processing statements"
+        ]
+      },
+      "compliance_output": {
+        "compliance_documentation": {
+          "merchant_industry": "Gambling",
+          "high_risk_match": true,
+          "artifacts_required": [
+            "Gaming License",
+            "Business Registration Proof",
+            "KYC",
+            "AML Policy",
+            "Geo-restriction Controls"
+          ]
+        }
+      },
+      "full_report_markdown": "# Merchant Assessment Report for Betking Online Ltd.\n\n## Merchant Overview\n\n- **Merchant Name:** Betking Online Ltd.\n- **Merchant URL:** https://m.betking.com/\n- **Primary Industry:** Gambling\n\n## Risk Documentation Analysis\n\n- **Merchant Type:** New Merchant\n- **Review Type:** Full Review\n### Documents Required for Risk Assessment:\n  - Full financials\n  - Bank statement\n  - Interim financials\n  - Processing statements\n\n## Compliance Documentation Analysis\n\n- **Merchant Industry:** Gambling\n- **High Risk Industry Match:** Yes\n### Compliance Artifacts Required:\n  - Gaming License\n  - Business Registration Proof\n  - KYC\n  - AML Policy\n  - Geo-restriction Controls\n\n---\n\n*This report is generated based on automated agent assessments as of 2026-04-21.*",
+      "documents_required": [
+        "Full financials",
+        "Bank statement",
+        "Interim financials",
+        "Processing statements"
+      ],
+      "is_existing_merchant": false,
+      "pd_score": null
+    },
+    "agent_5_adverse_media": {
+      "merchant_name": "Betking Online Ltd.",
+      "screening_id": "SCR-20260421180649-1bb7c61e",
+      "timestamp": "2026-04-21T18:07:26.268500+00:00",
+      "overall_risk_severity": "MEDIUM",
+      "overall_risk_score": 32.1,
+      "recommended_action": "EDD",
+      "data_sufficiency": "LIMITED",
+      "findings": [
+        {
+          "title": "Fraud, AI and Compliance: What BetKing\u2019s Tech Blueprint Reveals",
+          "category": "FINANCIAL",
+          "severity": "HIGH",
+          "summary": "The article discusses concerns regarding fraud within BetKing's operations and highlights the company's efforts to implement AI for compliance. It suggests that there are significant risks associated with fraud that the company is trying to mitigate.",
+          "source_url": "",
+          "source_name": "",
+          "published_date": "",
+          "confidence": 0.85,
+          "evidence_snippet": "discussions on fraud and compliance measures",
+          "requires_manual_review": false
+        },
+        {
+          "title": "BetKing explains investigations on bettors' video",
+          "category": "REPUTATIONAL",
+          "severity": "MEDIUM",
+          "summary": "This article covers a viral incident involving bettors sleeping in one of BetKing's agent shops, which has raised questions about the company's treatment of customers. The management's response indicates potential reputational risks.",
+          "source_url": "",
+          "source_name": "",
+          "published_date": "",
+          "confidence": 0.75,
+          "evidence_snippet": "viral video incident and management's response",
+          "requires_manual_review": false
+        }
+      ],
+      "findings_by_category": {
+        "FINANCIAL": 1,
+        "REPUTATIONAL": 1
+      },
+      "findings_by_severity": {
+        "HIGH": 1,
+        "MEDIUM": 1
+      },
+      "total_articles_collected": 2,
+      "articles_by_source": {
+        "Google": 1,
+        "DuckDuckGo": 1
+      },
+      "sources_consulted": [
+        "Google",
+        "DuckDuckGo"
+      ],
+      "corroboration_score": 0.2,
+      "cross_source_summary": "Both articles highlight negative aspects related to BetKing, focusing on fraud concerns and a reputational incident. The first article emphasizes financial risks, while the second addresses customer treatment issues.",
+      "key_risk_indicators": [
+        "fraud concerns",
+        "customer treatment issues"
+      ],
+      "executive_summary": "Executive Summary:\n\nBetking Online Ltd., operating in the gambling industry, has undergone a preliminary risk screening based on limited data sources, primarily from DuckDuckGo and Google, resulting in a corroboration rate of only 20%. The findings indicate a high financial risk associated with potential fraud and compliance issues, as highlighted in an article discussing BetKing's technological framework. Additionally, there is a medium reputational risk stemming from ongoing investigations related to bettors' videos. Given the limited data sufficiency and the reliance on a small number of articles, it is recommended to conduct a more comprehensive investigation utilizing diverse and credible sources to validate these findings and assess the overall risk profile of Betking Online Ltd.",
+      "recommendation_rationale": "Medium-severity findings \u2014 enhanced due diligence warranted.",
+      "search_queries_used": [
+        "\"Betking\" fraud OR scam Gambling",
+        "\"Betking\" lawsuit OR sued OR indicted Gambling",
+        "\"Betking\" fine OR penalty OR sanction Gambling",
+        "\"Betking\" regulatory action enforcement Gambling",
+        "\"Betking\" scandal OR controversy Gambling",
+        "\"Betking\" complaint OR \"class action\" Gambling",
+        "\"Betking\" data breach OR hack Gambling",
+        "\"Betking\" bankruptcy OR insolvent Gambling",
+        "\"Betking\" money laundering Gambling",
+        "\"Betking\" OFAC OR \"sanctions list\" Gambling",
+        "Betking illegal gambling",
+        "Betking gaming license revoked",
+        "Betking betting fraud",
+        "Betking gambling ban",
+        "Betking fraud scam controversy Gambling",
+        "Betking lawsuit sued legal action Gambling",
+        "Betking fine penalty regulatory Gambling",
+        "Betking scandal allegations unethical Gambling",
+        "Betking complaint investigation Gambling",
+        "Betking banned revoked suspended Gambling"
+      ],
+      "reasoning_trace": [
+        "Starting adverse media screening.",
+        "Generated 20 search queries (14 narrow + 6 broad).",
+        "Collected 2 articles from 2 source types.",
+        "Wikipedia: not found.",
+        "Running GPT-4o-mini analysis...",
+        "Identified 2 adverse finding(s).",
+        "Risk: severity=MEDIUM, score=32.1, action=EDD",
+        "Generating executive summary..."
+      ],
+      "processing_time_seconds": 36.39,
+      "model_used": "gpt-4o-mini"
+    },
+    "agent_6_sentiment": {
+      "merchant_name": "Betking Online Ltd.",
+      "overall_sentiment_score": 0.0,
+      "customer_satisfaction_rating": 2.5,
+      "sentiment_distribution": {
+        "positive": 0.0,
+        "negative": 0.0,
+        "neutral": 1.0
+      },
+      "key_positive_themes": [],
+      "key_negative_themes": [],
+      "review_count": 8,
+      "sample_positive_reviews": [],
+      "sample_negative_reviews": [],
+      "recommendation_flag": "REVIEW",
+      "processing_timestamp": "2026-04-21T23:38:17.033051"
+    },
+    "agent_7_orchestration": {
+      "merchant_name": "Betking Online Ltd.",
+      "agent3": {
+        "merchant_name": "Betking Online Ltd.",
+        "risk_level": "HIGH",
+        "high_risk_flag": true,
+        "tpb_threshold_exceeded": true,
+        "compliance_review_required": true,
+        "industry_risk_category": "Gambling",
+        "required_questionnaires": [
+          "Q-001",
+          "Q-003",
+          "Q-004",
+          "Q-005",
+          "Q-008"
+        ],
+        "applicable_playbooks": [
+          "PB-005",
+          "PB-013"
+        ]
+      },
+      "agent4": {
+        "merchant_name": "Betking Online Ltd.",
+        "pd_score": null,
+        "documents_required": [
+          "Full financials",
+          "Bank statement",
+          "Interim financials",
+          "Processing statements"
+        ],
+        "merchant_type": "New Merchant",
+        "risk_review": "Full Review",
+        "merchant_industry": "Gambling",
+        "high_risk_match": true,
+        "artifacts_required": [
+          "Gaming License",
+          "Business Registration Proof",
+          "KYC",
+          "AML Policy",
+          "Geo-restriction Controls"
+        ],
+        "compliance_message": ""
+      },
+      "agent5": {
+        "merchant_name": "Betking Online Ltd.",
+        "overall_risk_severity": "MEDIUM",
+        "overall_risk_score": 32.1,
+        "recommended_action": "EDD",
+        "data_sufficiency": "LIMITED",
+        "findings_count": 2,
+        "corroboration_score": 0.2
+      },
+      "agent6": {
+        "merchant_name": "Betking Online Ltd.",
+        "overall_sentiment_score": 0.0,
+        "customer_satisfaction_rating": 2.5,
+        "recommendation_flag": "REVIEW",
+        "review_count": 8,
+        "negative_ratio": 0.0
+      },
+      "signals": {
+        "a3": {
+          "risk_level": "HIGH",
+          "high_risk_flag": true,
+          "compliance_required": true,
+          "tpb_threshold_exceeded": true
+        },
+        "a4": {
+          "merchant_type": "New Merchant",
+          "is_existing_merchant": false,
+          "is_new_merchant": true,
+          "risk_review": "Full Review",
+          "pd_score": null,
+          "pd_exceeds_threshold": false,
+          "document_count": 4,
+          "high_risk_match": true,
+          "compliance_artifacts_count": 5,
+          "compliance_message": "",
+          "merchant_industry": "Gambling"
+        },
+        "a5": {
+          "severity": "MEDIUM",
+          "risk_score": 32.1,
+          "is_critical": false,
+          "is_high": false,
+          "data_insufficient": false,
+          "action": "EDD"
+        },
+        "a6": {
+          "sentiment_score": 0.0,
+          "satisfaction": 2.5,
+          "flag": "REVIEW",
+          "is_very_negative": false,
+          "review_count": 8
+        }
+      },
+      "conflicts": [],
+      "has_critical_conflict": false,
+      "final_decision": "MANUAL_REVIEW",
+      "escalation_reasons": [
+        "Agent 3 risk level is HIGH",
+        "Agent 3 TPB threshold exceeded"
+      ],
+      "decision_rationale": "The decision to escalate to manual review is based on Agent 3 indicating a high risk level and that the TPB threshold has been exceeded. Although Agent 5 has a medium severity and a low risk score, the combination of high risk from Agent 3 necessitates further human analysis.",
+      "required_actions": [
+        "Conduct a detailed compliance review",
+        "Assess additional information on the merchant's operations"
+      ],
+      "orchestration_id": "ORCH-20260421180822-1bb7c61e",
+      "timestamp": "2026-04-21T18:08:22.901910+00:00",
+      "processing_trace": [
+        "[18:08:22] INTAKE: Receiving outputs from Agents 3, 4, 5, 6",
+        "[18:08:22] INTAKE: \u2713 All 4 agent inputs received",
+        "[18:08:22] ASSESS: Extracting signals from each agent",
+        "[18:08:22] ASSESS: A3 risk=HIGH | A4 type=New Merchant pd=None | A5 severity=MEDIUM score=32.1 | A6 sentiment=0.00",
+        "[18:08:22] CONFLICT: Asking LLM to detect conflicts (Agents 3/5/6)",
+        "[18:08:24] CONFLICT: \u2713 No conflicts between agent signals",
+        "[18:08:24] DECIDE: Asking LLM to make final decision",
+        "[18:08:27] DECIDE: \u2192 MANUAL_REVIEW (2 escalation reason(s))",
+        "[18:08:27] FINALIZE: Decision = MANUAL_REVIEW",
+        "[18:08:27] FINALIZE: Orchestration complete"
+      ]
+    },
+    "agent_8_summary": {
+      "summary_text": "\ud83e\uddfe MERCHANT ONBOARDING REPORT (SALES ENABLEMENT)\n\n1. **Executive Overview**\n   This report provides a comprehensive onboarding analysis for Betking Online Ltd., highlighting key risk factors and necessary documentation for successful onboarding. The findings suggest that this profile supports onboarding subject to the collection of specific documents and further review. Key strengths include the merchant's established presence in the online gaming industry, while considerations include a high-risk assessment and adverse media findings. Timely collection of required documentation is essential to avoid delays in the onboarding process.\n\n2. **Merchant Snapshot**\n   - **Merchant Name:** Betking Online Ltd.\n   - **Industry:** Online Gaming\n   - **Website:** [Betking](https://www.betking.com)\n   - **Merchant Type:** Online Gaming Operator\n   - **MCC:** Not Available\n   - **Business Context:** Betking Online Ltd. operates in a highly regulated environment, providing online gaming services. The company has been actively working to enhance its compliance measures.\n\n3. **Data Validation Status**\n   - **Data Quality Score:** Not provided\n   - **Completeness:** Limited\n   - **Issues:** None reported\n   - \ud83d\udc49 **Sales Implication:** The limited data sufficiency may require additional documentation to ensure a complete understanding of the merchant's operations and compliance posture.\n\n4. **Risk & Compliance Overview (Simplified)**\n   - **Risk Level & Score:** HIGH (95)\n   - **Review Requirements:** Compliance review required due to high-risk assessment.\n   - **Compliance Expectations:** Additional documentation and questionnaires will be necessary to address compliance concerns.\n   - \ud83d\udc49 **Sales-Friendly Interpretation:** A cautious approach may be warranted given the high-risk score and the need for further compliance review.\n\n5. **Financial & Documentation Requirements (CRITICAL)**\n   - **Narrative Explanation:** The PD score of 4.00% indicates a significant risk associated with the merchant's operations. As an online gaming operator, Betking is subject to stringent regulatory scrutiny, necessitating a thorough review. The manual review type indicates that further human analysis is needed due to the high-risk level identified.\n   - \ud83d\udcc4 **Required Documentation (To Be Collected from Merchant):**\n     - **PD Value Check:** 4.00%\n     - **DDD Documents:** Not specified\n     - **Questionnaire:** \n       - Q-001\n       - Q-003\n       - Q-004\n       - Q-005\n       - Q-008\n     - **Playbook Link:** \n       - PB-005\n       - PB-013\n   - \ud83d\udccc **Sales Guidance:** Each document is critical for assessing the merchant's compliance and operational integrity. The questionnaires will provide insights into the merchant's risk management practices, while the playbooks will guide compliance expectations. Missing these documents will block onboarding progression.\n   - \u26a0\ufe0f **Important for Sales:** These documents are mandatory; delays in collection will hinder the onboarding process.\n\n6. **Adverse Media Considerations (Sales Awareness)**\n   - **Summary of Findings:** The adverse media review indicates medium severity with notable concerns regarding fraud and customer treatment. Articles highlight significant risks associated with fraud within Betking's operations and reputational risks stemming from customer incidents.\n   - \ud83d\udc49 **Sales Implication:** Awareness of these adverse findings is crucial for Sales to address potential client concerns and to prepare for discussions regarding risk mitigation strategies.\n\n7. **Customer Sentiment Overview**\n   - **Sentiment Score:** 0.0\n   - **Satisfaction Rating:** 2.5\n   - **Review Count:** 8\n   - **Interpretation:** The low sentiment score and satisfaction rating suggest customer dissatisfaction, which may impact the merchant's reputation and operational stability.\n\n8. **Overall Risk Positioning (Sales Framing)**\n   - **Strengths:** Established presence in the online gaming sector, proactive compliance measures.\n   - **Considerations:** High-risk assessment, adverse media findings, and low customer sentiment.\n   - \ud83d\udc49 **Framing:** The opportunity remains viable provided that all required documentation is collected and compliance concerns are adequately addressed.\n\n9. **Recommended Next Steps (FOR SALES TEAM)**\n   - \ud83d\ude80 **Immediate Actions:** Collect the required questionnaires and any additional documentation necessary for compliance review.\n   - \ud83d\udcca **Coordination:** Align with internal compliance teams to ensure all documentation meets expectations.\n   - \u23f1\ufe0f **Follow-Up:** Track the collection of documents closely to adhere to the 7-day deadline.\n\n10. **Summary for Sales**\n   The onboarding opportunity with Betking Online Ltd. is viable; however, timely collection of mandatory documentation is critical. Addressing compliance concerns and adverse media findings will be essential to facilitate a smooth onboarding process.",
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "system_instructions": "You are a Senior Financial Risk & Compliance Reporting Specialist supporting a Sales Onboarding team at a financial institution.\nYour task is to generate a structured, narrative-style onboarding report that is:\n- Suitable for sales execution\n- Informative for risk & compliance teams\n- Clear on required merchant actions\n- Written in a professional financial reporting tone\n\n\ud83c\udfaf OBJECTIVE\nProduce a comprehensive onboarding report that:\n- Synthesizes all agent outputs into a clear, structured document\n- Balances risk insights with sales usability\n- Clearly identifies what Sales must collect from the merchant\n- Presents conclusions as recommendations (NOT final decisions)\n\n\ud83d\udce5 INPUT DATA\nYou will receive structured outputs from various risk and validation agents (Validation, Risk & Compliance, Adverse Media, Sentiment, Orchestration).\n\n\ud83e\udde0 CORE INSTRUCTIONS\n\n1. STYLE & TONE (CRITICAL)\n- Write like a financial onboarding / credit memo\n- Use clear sections and structured formatting\n- Be descriptive but practical\n- Avoid overly technical or alarmist language\n- Ensure the report is usable by Sales teams\n\n2. DECISION FRAMING (MANDATORY)\n- DO NOT state a hard decision (e.g., \u201cREJECT\u201d, \u201cAPPROVE\u201d)\n- Use advisory language only, such as:\n  - \u201cThis profile supports onboarding subject to\u2026\u201d\n  - \u201cA cautious approach may be warranted\u2026\u201d\n  - \u201cThe opportunity remains viable provided\u2026\u201d\n\n3. SALES-FIRST ORIENTATION\n- Highlight what Sales needs to do\n- Make document collection extremely clear\n- Ensure the report answers: \u201cWhat do we need from the merchant to proceed?\u201d\n\n\ud83d\udd34 CRITICAL REQUIREMENT \u2014 AGENT 4 (DO NOT VIOLATE)\nYou MUST preserve ALL Agent 4 outputs EXACTLY, including:\n- Merchant type\n- PD score (exact value)\n- Risk review type\n- Documents required\n- Any compliance artifact indicators\n\n\u2705 REQUIRED HANDLING\nA. Narrative Explanation\nExplain what the PD score means, what the merchant type implies, and what the review type indicates.\n\nB. \ud83d\udcc4 Required Documentation (MANDATORY SECTION)\nYou MUST include a clearly visible section titled: \"\ud83d\udcc4 Required Documentation (To Be Collected from Merchant)\"\nInclude: PD value check (4.00%), DDD documents, Questionnaire, Playbook link.\n\ud83d\udeab Do NOT: Remove items, Rename items, or Convert into paragraph-only format.\n\nC. Sales Interpretation\nExplain why each document is needed, that these are mandatory for onboarding progression, and that delays will block onboarding.\n\n\u2696\ufe0f RISK HANDLING GUIDELINES\nUse this priority when interpreting signals: 1. Adverse Media (highest), 2. Regulatory / Compliance exposure, 3. Risk scoring, 4. Financial profile, 5. Sentiment (lowest).\nExplain conflicts clearly in simple business terms.\n\n\ud83d\udcc4 REQUIRED OUTPUT STRUCTURE\n\ud83e\uddfe MERCHANT ONBOARDING REPORT (SALES ENABLEMENT)\n\n1. Executive Overview\n- High-level summary, Recommendation-style conclusion, Key strengths and considerations, Emphasize dependency on documentation.\n\n2. Merchant Snapshot\n- Merchant name, Industry, Website, Merchant type, MCC (if available), Business context.\n\n3. Data Validation Status\n- Data quality score, Completeness, Issues (if any), \ud83d\udc49 Include Sales implication.\n\n4. Risk & Compliance Overview (Simplified)\n- Risk level & score, Review requirements, Compliance expectations, \ud83d\udc49 Translate into Sales-friendly interpretation.\n\n5. Financial & Documentation Requirements (CRITICAL)\n- Narrative Explanation: PD score, Merchant type, Review type.\n- \ud83d\udcc4 Required Documentation: PD value check (4.00%), DDD documents, Questionnaire, Playbook link.\n- \ud83d\udccc Sales Guidance: Explain what each is, why it\u2019s required, impact if missing.\n- \u26a0\ufe0f Important for Sales: Clearly state these are mandatory, missing documents block onboarding, these are standard requirements.\n\n6. Adverse Media Considerations (Sales Awareness)\n- Summarize findings, Avoid alarmist tone, Emphasize internal awareness, \ud83d\udc49 Include Sales implication.\n\n7. Customer Sentiment Overview\n- Sentiment score, Rating, Interpretation.\n\n8. Overall Risk Positioning (Sales Framing)\n- Strengths, Considerations, Balanced view, \ud83d\udc49 Frame as: \u201cViable opportunity with conditions\u201d.\n\n9. Recommended Next Steps (FOR SALES TEAM)\n- \ud83d\ude80 Immediate Actions: What to collect, What to send.\n- \ud83d\udcca Coordination: Internal alignment.\n- \u23f1\ufe0f Follow-Up: Tracking expectations.\n\n10. Summary for Sales\n- 3\u20135 line takeaway emphasizing opportunity viability and documentation as key blocker.\n\n\u26a0\ufe0f STRICT RULES\n- Do NOT output JSON\n- Do NOT skip sections\n- Do NOT remove Agent 4 details\n- Do NOT state a final decision\n- Do NOT over-compress document requirements\n\n\u2705 OUTPUT\nReturn ONLY the final structured report.\n",
+      "input_payload": {
+        "merchant_name": "Betking Online Ltd.",
+        "final_decision": "MANUAL_REVIEW",
+        "decision_rationale": "The decision to escalate to manual review is based on Agent 3 indicating a high risk level and that the TPB threshold has been exceeded. Although Agent 5 has a medium severity and a low risk score, the combination of high risk from Agent 3 necessitates further human analysis.",
+        "escalation_reasons": [
+          "Agent 3 risk level is HIGH",
+          "Agent 3 TPB threshold exceeded"
+        ],
+        "risk_assessment": {
+          "risk_level": "HIGH",
+          "risk_score": 95,
+          "compliance_review_required": true,
+          "required_questionnaires": [
+            "Q-001",
+            "Q-003",
+            "Q-004",
+            "Q-005",
+            "Q-008"
+          ],
+          "applicable_playbooks": [
+            "PB-005",
+            "PB-013"
+          ]
+        },
+        "adverse_media": {
+          "severity": "MEDIUM",
+          "score": 32.1,
+          "data_sufficiency": "LIMITED",
+          "top_findings": [
+            {
+              "title": "Fraud, AI and Compliance: What BetKing\u2019s Tech Blueprint Reveals",
+              "category": "FINANCIAL",
+              "severity": "HIGH",
+              "summary": "The article discusses concerns regarding fraud within BetKing's operations and highlights the company's efforts to implement AI for compliance. It suggests that there are significant risks associated with fraud that the company is trying to mitigate."
+            },
+            {
+              "title": "BetKing explains investigations on bettors' video",
+              "category": "REPUTATIONAL",
+              "severity": "MEDIUM",
+              "summary": "This article covers a viral incident involving bettors sleeping in one of BetKing's agent shops, which has raised questions about the company's treatment of customers. The management's response indicates potential reputational risks."
+            }
+          ]
+        },
+        "sentiment": {
+          "overall_score": 0.0,
+          "satisfaction_rating": 2.5,
+          "review_count": 8
+        },
+        "documents": {
+          "required_documents": [],
+          "deadline_days": 7
+        }
+      }
+    }
+  },
+  "pipeline_trace": [
+    "[18:06:49] STEP 1: Running Agent 2 (Validation)...",
+    "[18:06:49] \u26a0 Validation passed with warnings (score=75)",
+    "[18:06:49] STEP 2: Running Agents 3, 5, 6 in parallel, then Agent 4...",
+    "[18:07:05]   \u2713 agent_3 completed",
+    "[18:07:26]   \u2713 agent_5 completed",
+    "[18:08:17]   \u2713 agent_6 completed",
+    "[18:08:17]   Running Agent 4 (depends on Agent 3 output)...",
+    "[18:08:22]   \u2713 agent_4 completed",
+    "[18:08:22] STEP 3: Running Agent 7 (Orchestration)...",
+    "[18:08:27] \u2713 Orchestration decision: MANUAL_REVIEW",
+    "[18:08:27] STEP 4: Running Agent 8 (Summarization)...",
+    "[18:08:44] \u2713 Summary generated",
+    "[18:08:44] Pipeline complete in 114.3s"
+  ]
+}

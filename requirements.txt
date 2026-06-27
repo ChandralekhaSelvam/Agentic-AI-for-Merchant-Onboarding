@@ -8,3 +8,20 @@ textblob
 openpyxl
 openai>=1.30.0
 python-dotenv
+pdfplumber
+
+# LangChain
+langchain==0.2.14
+langchain-openai==0.1.22
+langchain-core>=0.2.23
+langgraph==0.2.16
+
+# ML for Agent 6
+torch==2.2.2
+transformers==4.38.2
+scikit-learn
+tensorflow
+
+# UI
+flask>=3.0.0
+flask-cors>=4.0.0

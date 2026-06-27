@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merchant Onboarding Pipeline</title>
+<style>
+  :root {
+    --bg:        #0d0f14;
+    --surface:   #161920;
+    --surface2:  #1d2029;
+    --border:    rgba(255,255,255,0.07);
+    --border2:   rgba(255,255,255,0.13);
+    --text:      #e4e6ed;
+    --text2:     #8b90a0;
+    --text3:     #555a6b;
+    --blue:      #4a90f5;
+    --blue-bg:   rgba(74,144,245,0.1);
+    --blue-bdr:  rgba(74,144,245,0.3);
+    --green:     #3ecf8e;
+    --green-bg:  rgba(62,207,142,0.08);
+    --green-bdr: rgba(62,207,142,0.3);
+    --amber:     #f5a623;
+    --amber-bg:  rgba(245,166,35,0.08);
+    --amber-bdr: rgba(245,166,35,0.28);
+    --red:       #f25959;
+    --red-bg:    rgba(242,89,89,0.08);
+    --red-bdr:   rgba(242,89,89,0.28);
+    --purple:    #a78bfa;
+    --purple-bg: rgba(167,139,250,0.08);
+    --teal:      #2dd4bf;
+    --radius:    8px;
+    --radius-lg: 12px;
+    --mono:      'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    --sans:      -apple-system, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header ─────────────────────────────────────────────── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 28px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -.01em;
+  }
+  .logo-icon {
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    display: inline-block;
+    margin-right: 5px;
+    box-shadow: 0 0 6px var(--green);
+  }
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  .layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    flex: 1;
+    height: calc(100vh - 52px);
+    overflow: hidden;
+  }
+
+  /* ── Left panel ──────────────────────────────────────────── */
+  .left-panel {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .panel-section {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 12px;
+  }
+
+  .form-group { margin-bottom: 10px; }
+  .form-label {
+    display: block;
+    font-size: 11px;
+    color: var(--text2);
+    margin-bottom: 4px;
+  }
+  .form-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 12px;
+    padding: 7px 10px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .form-input:focus { border-color: var(--blue); }
+  .form-input::placeholder { color: var(--text3); }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 9px 14px;
+    border-radius: var(--radius);
+    border: none;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity .15s, transform .1s;
+  }
+  .btn:active { transform: scale(.98); }
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+  }
+  .btn-primary:hover { opacity: .9; }
+  .btn-primary:disabled {
+    background: var(--surface2);
+    color: var(--text3);
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn-secondary {
+    background: var(--surface2);
+    color: var(--text2);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    padding: 7px 12px;
+  }
+  .btn-secondary:hover { color: var(--text); border-color: var(--border2); }
+
+  .demo-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  /* ── Pipeline stats ──────────────────────────────────────── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .stat-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+  }
+  .stat-label { font-size: 10px; color: var(--text3); margin-bottom: 3px; }
+  .stat-value { font-size: 18px; font-weight: 600; color: var(--text); }
+  .stat-value.approve { color: var(--green); }
+  .stat-value.reject  { color: var(--red); }
+  .stat-value.review  { color: var(--amber); }
+
+  /* ── Decision badge ──────────────────────────────────────── */
+  .decision-box {
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    margin-top: 4px;
+    border: 1px solid;
+    display: none;
+  }
+  .decision-box.visible { display: block; }
+  .decision-box.approve { background: var(--green-bg);  border-color: var(--green-bdr);  }
+  .decision-box.reject  { background: var(--red-bg);    border-color: var(--red-bdr);    }
+  .decision-box.review  { background: var(--amber-bg);  border-color: var(--amber-bdr);  }
+  .decision-label {
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .08em;
+    margin-bottom: 4px;
+  }
+  .decision-box.approve .decision-label { color: var(--green); }
+  .decision-box.reject  .decision-label { color: var(--red);   }
+  .decision-box.review  .decision-label { color: var(--amber); }
+  .decision-name {
+    font-size: 16px; font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .decision-box.approve .decision-name { color: var(--green); }
+  .decision-box.reject  .decision-name { color: var(--red);   }
+  .decision-box.review  .decision-name { color: var(--amber); }
+  .decision-rationale {
+    font-size: 12px; color: var(--text2); line-height: 1.6;
+    margin-top: 6px;
+  }
+  .conflict-row {
+    background: rgba(245,166,35,.06);
+    border: 1px solid var(--amber-bdr);
+    border-radius: var(--radius);
+    padding: 7px 10px;
+    font-size: 11px;
+    color: var(--amber);
+    margin-top: 8px;
+  }
+  .escalation-row {
+    font-size: 11px; color: var(--red);
+    padding: 3px 0;
+    display: flex; align-items: flex-start; gap: 6px;
+  }
+  .escalation-row::before { content: '›'; flex-shrink: 0; }
+
+  /* ── Progress bar ────────────────────────────────────────── */
+  .progress-wrap {
+    height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 12px 0 6px;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--blue);
+    border-radius: 2px;
+    transition: width .5s ease;
+    width: 0%;
+  }
+  .progress-bar.done { background: var(--green); }
+  .progress-meta {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--text3);
+  }
+
+  /* ── Right panel ─────────────────────────────────────────── */
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .pipeline-header {
+    padding: 16px 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .pipeline-title { font-size: 13px; font-weight: 600; color: var(--text); }
+  .pipe-badge {
+    font-size: 11px; font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text3);
+  }
+  .pipe-badge.running { color: var(--blue);  border-color: var(--blue-bdr);  background: var(--blue-bg); }
+  .pipe-badge.done    { color: var(--green); border-color: var(--green-bdr); background: var(--green-bg); }
+
+  /* ── Pipeline canvas ─────────────────────────────────────── */
+  .pipeline-canvas {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* ── Connector ───────────────────────────────────────────── */
+  .connector {
+    display: flex;
+    align-items: center;
+    padding: 0 26px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .connector-line {
+    width: 1px;
+    height: 20px;
+    background: var(--border2);
+  }
+
+  /* ── Stage label ─────────────────────────────────────────── */
+  .stage-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text3);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stage-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Agent card ──────────────────────────────────────────── */
+  .agent-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    flex-shrink: 0;
+  }
+  .agent-card:hover { border-color: var(--border2); }
+  .agent-card.running { border-color: var(--blue-bdr); background: rgba(74,144,245,.03); }
+  .agent-card.complete { border-color: var(--border); }
+  .agent-card.complete:hover { border-color: var(--border2); }
+  .agent-card.error { border-color: var(--red-bdr); }
+  .agent-card.selected { border-color: var(--blue-bdr) !important; background: rgba(74,144,245,.04); }
+
+  .agent-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .agent-number {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600;
+    color: var(--text3);
+    transition: background .2s, color .2s, border-color .2s;
+    margin-top: 1px;
+  }
+  .agent-card.running  .agent-number { background: var(--blue-bg);  border-color: var(--blue-bdr);  color: var(--blue);  }
+  .agent-card.complete .agent-number { background: var(--green-bg); border-color: var(--green-bdr); color: var(--green); }
+  .agent-card.error    .agent-number { background: var(--red-bg);   border-color: var(--red-bdr);   color: var(--red);   }
+
+  .agent-info { flex: 1; min-width: 0; }
+  .agent-name {
+    font-size: 13px; font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .agent-sub { font-size: 11px; color: var(--text3); }
+  .agent-desc { font-size: 12px; color: var(--text2); margin-top: 4px; line-height: 1.5; }
+
+  .agent-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    border: 1px solid transparent;
+  }
+  .badge-idle    { color: var(--text3);  border-color: var(--border); }
+  .badge-running { color: var(--blue);   border-color: var(--blue-bdr);  background: var(--blue-bg); }
+  .badge-done    { color: var(--green);  border-color: var(--green-bdr); background: var(--green-bg); }
+  .badge-error   { color: var(--red);    border-color: var(--red-bdr);   background: var(--red-bg); }
+
+  .timing-badge {
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+  }
+
+  /* Pulse animation */
+  @keyframes pulse-ring {
+    0%,100% { opacity: 1; }
+    50%      { opacity: .3; }
+  }
+  .pulse-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    animation: pulse-ring 1.2s ease-in-out infinite;
+  }
+
+  /* ── Parallel group ──────────────────────────────────────── */
+  .parallel-group {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 12px;
+    background: rgba(255,255,255,.015);
+    flex-shrink: 0;
+  }
+  .parallel-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text3);
+  }
+  .parallel-tag {
+    background: var(--purple-bg);
+    color: var(--purple);
+    border: 1px solid rgba(167,139,250,.3);
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .parallel-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .parallel-cards .agent-card { font-size: 12px; }
+  .parallel-cards .agent-desc { display: none; }
+
+  /* ── Output detail panel ─────────────────────────────────── */
+  .detail-panel {
+    border-top: 1px solid var(--border);
+    display: none;
+    flex-direction: column;
+    height: 260px;
+    flex-shrink: 0;
+    background: var(--surface);
+  }
+  .detail-panel.visible { display: flex; }
+
+  .detail-header {
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .detail-title {
+    font-size: 12px; font-weight: 500; color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .detail-close {
+    background: none; border: none;
+    color: var(--text3); font-size: 16px; cursor: pointer;
+    padding: 2px 6px; border-radius: 4px;
+    transition: color .15s;
+  }
+  .detail-close:hover { color: var(--text); }
+
+  .detail-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
+    flex-shrink: 0;
+  }
+  .detail-tab {
+    padding: 8px 14px;
+    font-size: 12px;
+    color: var(--text3);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color .15s;
+    background: none; border-top: none; border-left: none; border-right: none;
+    font-family: var(--sans);
+  }
+  .detail-tab:hover { color: var(--text2); }
+  .detail-tab.active { color: var(--text); border-bottom-color: var(--blue); }
+
+  .detail-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 20px;
+  }
+
+  /* Output table */
+  .output-table { width: 100%; border-collapse: collapse; }
+  .output-table td {
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    vertical-align: top;
+  }
+  .output-table tr:last-child td { border-bottom: none; }
+  .output-table .key { color: var(--text3); width: 40%; padding-right: 12px; }
+  .output-table .val { color: var(--text); word-break: break-word; }
+  .output-table .val.ok    { color: var(--green); }
+  .output-table .val.warn  { color: var(--amber); }
+  .output-table .val.bad   { color: var(--red);   }
+
+  /* Raw JSON / trace */
+  .raw-view {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text2);
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.7;
+  }
+  .trace-line {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 2px 0;
+    line-height: 1.6;
+  }
+  .trace-line.warn { color: var(--amber); }
+  .trace-line.ok   { color: var(--green); }
+  .trace-line.err  { color: var(--red); }
+  .trace-line.info { color: var(--text2); }
+
+  /* Risk / sentiment inline chips */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .chip-low      { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-bdr); }
+  .chip-medium   { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-bdr); }
+  .chip-high     { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-bdr); }
+  .chip-critical { background: rgba(242,89,89,.18); color: var(--red); border: 1px solid var(--red-bdr); }
+  .chip-approve  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-bdr); }
+  .chip-reject   { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-bdr); }
+  .chip-review   { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-bdr); }
+
+  /* Log stream */
+  .log-stream {
+    padding: 10px 20px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+    border-top: 1px solid var(--border);
+    height: 64px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 2px;
+    background: var(--bg);
+    flex-shrink: 0;
+  }
+  .log-line { line-height: 1.5; }
+  .log-line.event { color: var(--blue); }
+  .log-line.ok { color: var(--green); }
+  .log-line.err { color: var(--red); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* Animations */
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { animation: fade-in .2s ease; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 260px 1fr; }
+    .parallel-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🔍</div>
+    Merchant Onboarding Pipeline
+  </div>
+  <div class="header-meta">
+    <span><span class="status-dot"></span>Server connected</span>
+    <span id="run-count">0 runs</span>
+    <span id="clock"></span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ── LEFT PANEL ──────────────────────────────────────── -->
+  <div class="left-panel">
+
+    <div class="panel-section">
+      <div class="section-label">Load demo</div>
+      <div class="demo-row">
+        
+        <button class="btn btn-secondary" onclick="loadDemo('FreshBitesCafe')">✅ Fresh Bites Cafe</button>
+        <button class="btn btn-secondary" onclick="loadDemo('paypal')">✅ PayPal</button>
+        <button class="btn btn-secondary" onclick="loadDemo('gambling')">🎲 BetKing</button>
+      </div>
+      <div class="demo-row">
+        <button class="btn btn-secondary" onclick="loadDemo('ecomm')">🛒 ShopEasy</button>
+        <button class="btn btn-secondary" onclick="loadDemo('restaurant')">🍽 Bistro LLC</button>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="section-label">Merchant input</div>
+      <div class="form-group">
+        <label class="form-label">Merchant name *</label>
+        <input class="form-input" id="f-name" placeholder="e.g. Acme Payments Ltd." autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Website</label>
+        <input class="form-input" id="f-url" placeholder="https://example.com" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Industry</label>
+        <input class="form-input" id="f-industry" placeholder="e.g. E-commerce" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label class="form-label">MCC code</label>
+        <input class="form-input" id="f-mcc" placeholder="e.g. 5411" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Address</label>
+        <input class="form-input" id="f-address" placeholder="City, Country" autocomplete="off">
+      </div>
+
+      <div class="progress-wrap" id="pbar-wrap" style="display:none">
+        <div class="progress-bar" id="pbar"></div>
+      </div>
+      <div class="progress-meta" id="pbar-meta" style="display:none">
+        <span id="pbar-label">Initializing…</span>
+        <span id="pbar-elapsed">0s</span>
+      </div>
+
+      <div style="display:flex;gap:7px;margin-top:12px">
+        <button class="btn btn-primary" id="run-btn" onclick="runPipeline()">
+          ▶ Run pipeline
+        </button>
+        <button class="btn btn-secondary" id="reset-btn" onclick="resetAll()" style="display:none;width:auto;padding:9px 14px">↺</button>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="section-label">Pipeline stats</div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Status</div>
+          <div class="stat-value" id="stat-status" style="font-size:13px;font-weight:600">Idle</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Agents done</div>
+          <div class="stat-value" id="stat-done">0 / 8</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Elapsed</div>
+          <div class="stat-value" style="font-size:14px" id="stat-elapsed">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Findings</div>
+          <div class="stat-value" id="stat-findings">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-section" id="decision-section" style="display:none">
+      <div class="section-label">Final decision</div>
+      <div class="decision-box" id="decision-box">
+        <div class="decision-label" id="d-label"></div>
+        <div class="decision-name" id="d-name"></div>
+        <div class="decision-rationale" id="d-rationale"></div>
+        <div id="d-conflicts"></div>
+        <div id="d-escalations"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── RIGHT PANEL ─────────────────────────────────────── -->
+  <div class="right-panel">
+
+    <div class="pipeline-header">
+      <div class="pipeline-title">Pipeline execution</div>
+      <div class="pipe-badge" id="pipe-badge">Idle</div>
+    </div>
+
+    <div class="pipeline-canvas" id="pipeline-canvas">
+      <!-- Built by JS -->
+    </div>
+
+    <!-- Detail panel -->
+    <div class="detail-panel" id="detail-panel">
+      <div class="detail-header">
+        <div class="detail-title" id="detail-title">Agent output</div>
+        <button class="detail-close" onclick="closeDetail()">×</button>
+      </div>
+      <div class="detail-tabs" id="detail-tabs"></div>
+      <div class="detail-body" id="detail-body"></div>
+    </div>
+
+    <!-- Log stream -->
+    <div class="log-stream" id="log-stream">
+      <div class="log-line" style="color:var(--text3)">Ready — enter a merchant or load a demo.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════
+
+const S = {
+  phase: "idle",           // idle | running | done | error
+  agentStatus: {},         // {1:"idle"|"running"|"complete"|"error"}
+  agentOutput: {},         // {1: {...raw output}}
+  agentStart: {},          // {1: Date}
+  agentDuration: {},       // {1: "2.3s"}
+  selectedAgent: null,
+  doneCt: 0,
+  totalAgents: 8,
+  startTime: null,
+  elapsedTimer: null,
+  evtSource: null,
+  runCount: 0,
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// AGENT DEFINITIONS
+// ═══════════════════════════════════════════════════════════════════
+
+const AGENTS = [
+  { id: 1, name: "Data ingestion",       sub: "Agent 1", desc: "Normalizes and stores the merchant profile to SQLite. Validates and assigns a merchant ID." },
+  { id: 2, name: "Validation",           sub: "Agent 2", desc: "Checks required fields, URL format, industry taxonomy, and MCC codes. Returns a data quality score and flagged issues." },
+  { id: 3, name: "Risk & compliance",    sub: "Agent 3 — Parallel", desc: "LangChain agent with 6 policy tools. Classifies risk level, TPB thresholds, questionnaires and playbooks from Excel policy sheets." },
+  { id: 5, name: "Negative news",        sub: "Agent 5 — Parallel", desc: "Multi-source adverse media screening (Google, Reddit, CFPB). GPT-4o-mini classifies findings by category and severity." },
+  { id: 6, name: "Sentiment analysis",   sub: "Agent 6 — Parallel", desc: "HuggingFace transformers + TextBlob + TF-IDF + GPT-4o-mini. Analyzes customer reviews and extracts sentiment themes." },
+  { id: 4, name: "Document requirements", sub: "Agent 4", desc: "Determines document checklist from merchant type, PD score, and compliance obligations from Agent 3 output." },
+  { id: 7, name: "Orchestration",        sub: "Agent 7", desc: "LangGraph state machine: INTAKE → ASSESS → CONFLICT → DECIDE → FINALIZE. LLM detects agent signal conflicts." },
+  { id: 8, name: "Summarization",        sub: "Agent 8", desc: "GPT-4o-mini generates a structured sales enablement report in financial credit memo style." },
+];
+
+const DEMOS = {
+  FreshBitesCafe:     { merchant_name: "Fresh Bites Cafe", address: "2211 North First Street, San Jose, CA 95131", website: "https://freshbitescafe.com",       industry: "Restaurants",                     mcc: "5812" },
+  paypal:     { merchant_name: "PayPal", address: "2211 North First Street, San Jose, CA 95131", website: "https://www.paypal.com",       industry: "Fintech",                     mcc: "6012" },
+  gambling:   { merchant_name: "BetKing Online Ltd.", address: "123 Main St",                     website: "https://m.betking.com/",       industry: "Online Gambling / Betting",   mcc: "7995" },
+  ecomm:      { merchant_name: "ShopEasy Inc.",       address: "Delhi, India",                    website: "https://shopeasy.com",         industry: "E-commerce",                  mcc: "5999" },
+  restaurant: { merchant_name: "The Corner Bistro LLC", address: "456 Oak Street, Austin TX",    website: "https://thecornerbistro.com",  industry: "Restaurants / Food Service",  mcc: "5812" },
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════════════════════════════════
+
+function tick() {
+  document.getElementById("clock").textContent =
+    new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+tick(); setInterval(tick, 1000);
+
+// ═══════════════════════════════════════════════════════════════════
+// PIPELINE BUILD
+// ═══════════════════════════════════════════════════════════════════
+
+function buildPipeline() {
+  const canvas = document.getElementById("pipeline-canvas");
+  canvas.innerHTML = "";
+
+  function connector() {
+    const d = document.createElement("div"); d.className = "connector";
+    const l = document.createElement("div"); l.className = "connector-line";
+    d.appendChild(l); return d;
+  }
+
+  function stageLabel(txt) {
+    const d = document.createElement("div"); d.className = "stage-label"; d.textContent = txt;
+    return d;
+  }
+
+  function agentCard(ag, compact) {
+    const st = S.agentStatus[ag.id] || "idle";
+    const card = document.createElement("div");
+    card.className = `agent-card ${st}`;
+    card.dataset.agentId = ag.id;
+    if (S.selectedAgent === ag.id) card.classList.add("selected");
+    card.onclick = () => selectAgent(ag.id);
+
+    const num = document.createElement("div"); num.className = "agent-number"; num.textContent = ag.id;
+    const info = document.createElement("div"); info.className = "agent-info";
+
+    const keyOutput = document.createElement("div");
+keyOutput.style.fontSize = "11px";
+keyOutput.style.marginTop = "6px";
+keyOutput.style.color = "var(--text2)";
+
+const output = S.agentOutput[ag.id];
+
+if (output) {
+  if (ag.id === 3) {
+    keyOutput.innerHTML = `Risk: <span class="chip chip-${(output.risk_level || '').toLowerCase()}">${output.risk_level}</span>`;
+  }
+
+  if (ag.id === 4) {
+    const val = output?.compliance_output?.compliance_documentation?.high_risk_match;
+    keyOutput.innerHTML = `High Risk Match: <b>${val ? "YES" : "NO"}</b>`;
+  }
+
+  if (ag.id === 5) {
+    keyOutput.innerHTML = `Action: <span class="chip chip-review">${output.recommended_action}</span>`;
+  }
+
+  if (ag.id === 6) {
+    keyOutput.innerHTML = `Sentiment Flag: <span class="chip chip-review">${output.recommendation_flag}</span>`;
+  }
+
+  if (ag.id === 7) {
+    keyOutput.innerHTML = `Decision: <span class="chip chip-review">${output.final_decision}</span>`;
+  }
+}
+
+info.appendChild(keyOutput);
+
+    const nameRow = document.createElement("div"); nameRow.className = "agent-name";
+    nameRow.textContent = ag.name;
+    info.appendChild(nameRow);
+
+    const sub = document.createElement("div"); sub.className = "agent-sub"; sub.textContent = ag.sub;
+    info.appendChild(sub);
+
+    if (!compact) {
+      const desc = document.createElement("div"); desc.className = "agent-desc"; desc.textContent = ag.desc;
+      info.appendChild(desc);
+    }
+
+    const right = document.createElement("div"); right.className = "agent-right";
+    const bdg = document.createElement("span");
+    if (st === "idle")     { bdg.className = "badge badge-idle";    bdg.textContent = "Idle"; }
+    if (st === "running")  {
+      bdg.className = "badge badge-running";
+      const dot = document.createElement("div"); dot.className = "pulse-dot";
+      bdg.appendChild(dot);
+      bdg.appendChild(document.createTextNode(" Running"));
+    }
+    if (st === "complete") { bdg.className = "badge badge-done";    bdg.textContent = "✓ Done"; }
+    if (st === "error")    { bdg.className = "badge badge-error";   bdg.textContent = "Error"; }
+    right.appendChild(bdg);
+
+    if (st === "complete" && S.agentDuration[ag.id]) {
+      const t = document.createElement("span"); t.className = "timing-badge"; t.textContent = S.agentDuration[ag.id];
+      right.appendChild(t);
+    }
+
+    const hdr = document.createElement("div"); hdr.className = "agent-card-header";
+    hdr.appendChild(num); hdr.appendChild(info); hdr.appendChild(right);
+    card.appendChild(hdr);
+    return card;
+  }
+
+  // Sequential before parallel
+  canvas.appendChild(stageLabel("Sequential"));
+  canvas.appendChild(agentCard(AGENTS[0], false));   // A1
+  canvas.appendChild(connector());
+  canvas.appendChild(agentCard(AGENTS[1], false));   // A2
+  canvas.appendChild(connector());
+
+  // Parallel group
+  const pg = document.createElement("div"); pg.className = "parallel-group";
+  const ph = document.createElement("div"); ph.className = "parallel-header";
+  ph.innerHTML = `<span class="parallel-tag">PARALLEL</span> Agents 3, 5, 6 — run concurrently`;
+  pg.appendChild(ph);
+  const pgrid = document.createElement("div"); pgrid.className = "parallel-cards";
+  pgrid.appendChild(agentCard(AGENTS[2], true));   // A3
+  pgrid.appendChild(agentCard(AGENTS[4], true));   // A5
+  pgrid.appendChild(agentCard(AGENTS[3], true));   // A6
+  pg.appendChild(pgrid);
+  canvas.appendChild(pg);
+  canvas.appendChild(connector());
+
+  // Sequential after parallel
+  canvas.appendChild(agentCard(AGENTS[5], false));   // A4
+  canvas.appendChild(connector());
+  canvas.appendChild(stageLabel("Orchestration & summarization"));
+  canvas.appendChild(agentCard(AGENTS[6], false));   // A7
+  canvas.appendChild(connector());
+  canvas.appendChild(agentCard(AGENTS[7], false));   // A8
+}
+
+buildPipeline();
+
+// ═══════════════════════════════════════════════════════════════════
+// AGENT SELECTION + DETAIL PANEL
+// ═══════════════════════════════════════════════════════════════════
+
+function selectAgent(id) {
+  if (S.agentStatus[id] !== "complete") return;
+  S.selectedAgent = S.selectedAgent === id ? null : id;
+  buildPipeline();
+  renderDetail(id);
+}
+
+function closeDetail() {
+  S.selectedAgent = null;
+  document.getElementById("detail-panel").classList.remove("visible");
+  buildPipeline();
+}
+
+function renderDetail(agentId) {
+  const output = S.agentOutput[agentId];
+  const agent = AGENTS.find(a => a.id === agentId);
+  if (!output || !agent) return;
+
+  document.getElementById("detail-panel").classList.add("visible");
+  document.getElementById("detail-title").textContent = `Agent ${agentId} — ${agent.name}`;
+
+  // Build tabs: Summary, Raw JSON (and Trace for A7)
+  const tabs = document.getElementById("detail-tabs");
+  tabs.innerHTML = "";
+  const tabDefs = ["Summary", "Raw JSON"];
+  if (agentId === 7 && output.processing_trace) tabDefs.push("Trace");
+
+  tabDefs.forEach((t, i) => {
+    const btn = document.createElement("button");
+    btn.className = "detail-tab" + (i === 0 ? " active" : "");
+    btn.textContent = t;
+    btn.onclick = () => {
+      tabs.querySelectorAll(".detail-tab").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderDetailBody(agentId, t);
+    };
+    tabs.appendChild(btn);
+  });
+
+  renderDetailBody(agentId, "Summary");
+}
+
+function renderDetailBody(agentId, tab) {
+  const body = document.getElementById("detail-body");
+  const out = S.agentOutput[agentId] || {};
+
+  if (tab === "Raw JSON") {
+    const pre = document.createElement("div"); pre.className = "raw-view";
+    pre.textContent = JSON.stringify(out, null, 2);
+    body.innerHTML = ""; body.appendChild(pre);
+    return;
+  }
+
+  if (tab === "Trace") {
+    const lines = out.processing_trace || out.pipeline_trace || [];
+    body.innerHTML = "";
+    lines.forEach(l => {
+      const d = document.createElement("div"); d.className = "trace-line";
+      if (l.includes("✓") || l.includes("APPROVE"))      d.classList.add("ok");
+      else if (l.includes("⚠") || l.includes("conflict")) d.classList.add("warn");
+      else if (l.includes("✗") || l.includes("error"))   d.classList.add("err");
+      else                                                 d.classList.add("info");
+      d.textContent = l;
+      body.appendChild(d);
+    });
+    return;
+  }
+
+  // Summary tab — agent-specific
+  body.innerHTML = "";
+  const rows = buildSummaryRows(agentId, out);
+  if (!rows.length) { body.innerHTML = "<div style='color:var(--text3);font-size:12px'>No structured output available.</div>"; return; }
+
+  const tbl = document.createElement("table"); tbl.className = "output-table";
+  rows.forEach(([k, v, cls]) => {
+    const tr = document.createElement("tr");
+    const td1 = document.createElement("td"); td1.className = "key"; td1.textContent = k;
+    const td2 = document.createElement("td"); td2.className = "val " + (cls || "");
+    if (typeof v === "object" && v !== null) {
+      td2.appendChild(v);
+    } else {
+      td2.textContent = v ?? "—";
+    }
+    tr.appendChild(td1); tr.appendChild(td2);
+    tbl.appendChild(tr);
+  });
+  body.appendChild(tbl);
+}
+
+function chip(text, cls) {
+  const s = document.createElement("span"); s.className = `chip chip-${cls}`; s.textContent = text; return s;
+}
+
+function buildSummaryRows(id, out) {
+  const vp = out.validated_profile || {};
+  const issues = out.issues_found || [];
+
+  switch (id) {
+    case 1: {
+      const o = out;
+      return [
+        ["Merchant ID",    o.id ?? "—"],
+        ["Merchant name",  o.merchant_name ?? o.name ?? "—"],
+        ["Website",        o.website ?? "—"],
+        ["Industry",       o.industry ?? "—"],
+        ["MCC code",       o.mcc ?? "—"],
+        ["Address",        o.address ?? "—"],
+        ["Created at",     o.created_at ?? "—"],
+        ["Status",         "Stored successfully", "ok"],
+      ];
+    }
+    case 2: {
+      const score = vp.data_quality_score ?? out.score ?? "—";
+      const status = vp.status ?? out.status ?? "—";
+      const statusCls = status === "valid" ? "ok" : status === "partial" ? "warn" : "bad";
+      const issueRows = issues.length
+        ? [["Issues found", issues.map(i => typeof i === "string" ? i : JSON.stringify(i)).join("\n"), "warn"]]
+        : [["Issues", "None — all checks passed", "ok"]];
+      return [
+        ["Validation status", status, statusCls],
+        ["Quality score",    score],
+        ["Merchant name",    vp.merchant_name ?? "—"],
+        ["Industry",         vp.industry ?? "—"],
+        ["Website",          vp.website ?? "—"],
+        ["MCC",              vp.mcc ?? "—"],
+        ...issueRows,
+      ];
+    }
+    case 3: {
+      const rl = (out.risk_level || "").toUpperCase();
+      const rlCls = rl === "LOW" ? "ok" : rl === "MEDIUM" ? "warn" : "bad";
+      const rlChip = chip(rl || "—", rl.toLowerCase() || "medium");
+      return [
+        ["Risk level",         rlChip],
+        ["Risk score",         out.risk_score != null ? `${out.risk_score} / 100` : "—", rlCls],
+        ["High risk flag",     out.high_risk_flag ? "Yes" : "No", out.high_risk_flag ? "warn" : "ok"],
+        ["Industry category",  out.industry_risk_category ?? "—"],
+        ["Compliance review",  out.compliance_review_required ? "Yes" : "No", out.compliance_review_required ? "warn" : "ok"],
+        ["TPB review",         out.tpb_threshold_exceeded ? "Yes" : "No", out.tpb_threshold_exceeded ? "warn" : "ok"],
+        ["Questionnaires",     (out.required_questionnaires || []).join(", ") || "None"],
+        ["Playbooks",          (out.applicable_playbooks || []).join(", ") || "None"],
+        ["Decision",           out.overall_decision ?? "—"],
+      ];
+    }
+    case 4: {
+      const ro = out.risk_output || {};
+      const co = out.compliance_output?.compliance_documentation || {};
+      const docs = ro.documents_required || [];
+      const arts = co.artifacts_required || [];
+      return [
+        ["Merchant type",      ro.merchant_type ?? "—"],
+        ["Risk review",        ro.risk_review ?? "—"],
+        ["PD score",           ro.pd_score != null ? `${(ro.pd_score * 100).toFixed(2)}%` : "N/A (new merchant)"],
+        ["Documents required", docs.length ? docs.join(", ") : "None"],
+        ["High risk match",    co.high_risk_match ? "Yes" : "No", co.high_risk_match ? "warn" : "ok"],
+        ["Compliance message", co.message || out.compliance_message || "—"],
+        ["Artifacts required", arts.length ? arts.join(", ") : "None"],
+      ];
+    }
+    case 5: {
+      const sev = (out.overall_risk_severity || "NONE").toUpperCase();
+      const sevCls = sev === "CRITICAL" ? "critical" : sev === "HIGH" ? "high" : sev === "MEDIUM" ? "medium" : "low";
+      const sevChip = chip(sev, sevCls);
+      const act = (out.recommended_action || "").toUpperCase();
+      const actCls = act === "APPROVE" ? "approve" : act === "DECLINE" ? "reject" : "review";
+      const actChip = chip(act || "—", actCls);
+      const findings = out.findings || [];
+      return [
+        ["Risk severity",      sevChip],
+        ["Risk score",         out.overall_risk_score != null ? `${out.overall_risk_score.toFixed(1)} / 100` : "—"],
+        ["Recommended action", actChip],
+        ["Data sufficiency",   out.data_sufficiency ?? "—"],
+        ["Articles collected", out.total_articles_collected ?? "—"],
+        ["Sources",            (out.sources_consulted || []).join(", ") || "—"],
+        ["Corroboration",      out.corroboration_score != null ? `${(out.corroboration_score * 100).toFixed(0)}%` : "—"],
+        ["Findings count",     findings.length || out.findings_count || 0],
+        ["Categories",         Object.entries(out.findings_by_category || {}).map(([k,v]) => `${k}:${v}`).join(", ") || "—"],
+        ["Key indicators",     (out.key_risk_indicators || []).join(", ") || "None"],
+        ["Executive summary",  out.executive_summary ? out.executive_summary.substring(0, 200) + "…" : "—"],
+      ];
+    }
+    case 6: {
+      const flag = (out.recommendation_flag || "").toUpperCase();
+      const flagCls = flag === "APPROVE" ? "approve" : flag === "REJECT" ? "reject" : "review";
+      const flagChip = chip(flag || "—", flagCls);
+      const dist = out.sentiment_distribution || {};
+      return [
+        ["Merchant",           out.merchant_name ?? "—"],
+        ["Recommendation",     flagChip],
+        ["Sentiment score",    out.overall_sentiment_score != null ? out.overall_sentiment_score.toFixed(2) : "—"],
+        ["Satisfaction",       out.customer_satisfaction_rating != null ? `${out.customer_satisfaction_rating.toFixed(2)} / 5.0` : "—"],
+        ["Reviews analyzed",   out.review_count ?? "—"],
+        ["Positive",           dist.positive != null ? `${(dist.positive * 100).toFixed(1)}%` : "—", "ok"],
+        ["Neutral",            dist.neutral  != null ? `${(dist.neutral  * 100).toFixed(1)}%` : "—"],
+        ["Negative",           dist.negative != null ? `${(dist.negative * 100).toFixed(1)}%` : "—", dist.negative > 0.5 ? "bad" : ""],
+        ["Positive themes",    (out.key_positive_themes || []).join(", ") || "None"],
+        ["Negative themes",    (out.key_negative_themes || []).join(", ") || "None"],
+      ];
+    }
+    case 7: {
+      const dec = (out.final_decision || "").toUpperCase();
+      const decCls = dec === "APPROVE" ? "approve" : dec === "REJECT" ? "reject" : "review";
+      const decChip = chip(dec || "—", decCls);
+      const conflicts = out.conflicts || [];
+      return [
+        ["Final decision",     decChip],
+        ["Orchestration ID",   out.orchestration_id ?? "—"],
+        ["Has critical conflict", out.has_critical_conflict ? "Yes" : "No", out.has_critical_conflict ? "bad" : "ok"],
+        ["Conflicts",          conflicts.length ? conflicts.join(" | ") : "None", conflicts.length ? "warn" : "ok"],
+        ["Escalation reasons", (out.escalation_reasons || []).join(", ") || "None"],
+        ["A3 risk level",      out.agent3?.risk_level ?? out.signals?.a3?.risk_level ?? "—"],
+        ["A5 severity",        out.agent5?.overall_risk_severity ?? out.signals?.a5?.severity ?? "—"],
+        ["A6 sentiment",       out.agent6?.overall_sentiment_score ?? out.signals?.a6?.sentiment_score ?? "—"],
+        ["Decision rationale", out.decision_rationale ?? "—"],
+      ];
+    }
+    case 8: {
+      const txt = typeof out === "string" ? out : (out.summary || out.onboarding_summary || out.report || JSON.stringify(out, null, 2));
+      const pre = document.createElement("div"); pre.className = "raw-view"; pre.style.fontSize = "11px";
+      pre.textContent = typeof txt === "string" ? txt : JSON.stringify(txt, null, 2);
+      return [["Report", pre]];
+    }
+    default:
+      return [];
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DEMO DATA
+// ═══════════════════════════════════════════════════════════════════
+
+function loadDemo(key) {
+  const d = DEMOS[key]; if (!d) return;
+  document.getElementById("f-name").value    = d.merchant_name;
+  document.getElementById("f-url").value     = d.website;
+  document.getElementById("f-industry").value = d.industry;
+  document.getElementById("f-mcc").value     = d.mcc;
+  document.getElementById("f-address").value  = d.address;
+  if (S.phase !== "idle") resetAll();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RUN PIPELINE
+// ═══════════════════════════════════════════════════════════════════
+
+function runPipeline() {
+  const name = document.getElementById("f-name").value.trim();
+  if (!name) { alert("Merchant name is required."); return; }
+
+  resetAll(false);
+  S.phase = "running";
+  S.startTime = Date.now();
+  S.runCount++;
+  document.getElementById("run-count").textContent = `${S.runCount} run${S.runCount > 1 ? "s" : ""}`;
+
+  document.getElementById("run-btn").disabled = true;
+  document.getElementById("reset-btn").style.display = "block";
+  document.getElementById("pbar-wrap").style.display = "block";
+  document.getElementById("pbar-meta").style.display = "flex";
+  document.getElementById("pipe-badge").className = "pipe-badge running";
+  document.getElementById("pipe-badge").textContent = "Running";
+  document.getElementById("stat-status").textContent = "Running";
+
+  S.elapsedTimer = setInterval(() => {
+    const s = ((Date.now() - S.startTime) / 1000).toFixed(1);
+    document.getElementById("pbar-elapsed").textContent = s + "s";
+    document.getElementById("stat-elapsed").textContent = s + "s";
+  }, 200);
+
+  buildPipeline();
+
+  const payload = {
+    merchant_name: name,
+    website:  document.getElementById("f-url").value.trim(),
+    industry: document.getElementById("f-industry").value.trim(),
+    mcc:      document.getElementById("f-mcc").value.trim(),
+    address:  document.getElementById("f-address").value.trim(),
+  };
+
+  if (S.evtSource) { S.evtSource.close(); S.evtSource = null; }
+
+  fetch("/api/run", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  }).then(res => {
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buf = "";
+
+    function read() {
+      reader.read().then(({ done, value }) => {
+        if (done) return;
+        buf += decoder.decode(value, { stream: true });
+        const lines = buf.split("\n\n");
+        buf = lines.pop();
+        lines.forEach(chunk => {
+          if (chunk.startsWith("data: ")) {
+            try { handleEvent(JSON.parse(chunk.slice(6))); } catch {}
+          }
+        });
+        read();
+      });
+    }
+    read();
+  }).catch(err => {
+    log("Connection error: " + err.message, "err");
+    S.phase = "error";
+    setStatusStat("Error", "");
+    clearInterval(S.elapsedTimer);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// EVENT HANDLER
+// ═══════════════════════════════════════════════════════════════════
+
+function handleEvent(evt) {
+  if (!evt || evt.type === "heartbeat") return;
+
+  switch (evt.type) {
+    case "pipeline_start":
+      log(`Pipeline started — ${evt.merchant_name}`, "event");
+      setProgress(5, "Starting pipeline…");
+      break;
+
+    case "agent_start":
+      S.agentStatus[evt.agent_id] = "running";
+      S.agentStart[evt.agent_id] = Date.now();
+      log(`Agent ${evt.agent_id} (${evt.agent_name}) — running`, "event");
+      setProgress(null, `Agent ${evt.agent_id}: ${evt.agent_name}…`);
+      buildPipeline();
+      break;
+
+    case "agent_complete":
+      S.agentStatus[evt.agent_id] = "complete";
+      S.agentOutput[evt.agent_id] = evt.output;
+      if (S.agentStart[evt.agent_id]) {
+        const ms = Date.now() - S.agentStart[evt.agent_id];
+        S.agentDuration[evt.agent_id] = (ms / 1000).toFixed(1) + "s";
+      }
+      S.doneCt++;
+      document.getElementById("stat-done").textContent = `${S.doneCt} / ${S.totalAgents}`;
+      setProgress(Math.round((S.doneCt / S.totalAgents) * 90), `Agent ${evt.agent_id} complete`);
+      log(`Agent ${evt.agent_id} (${evt.agent_name}) — complete (${S.agentDuration[evt.agent_id]})`, "ok");
+
+      // Update findings stat from agent 5
+      if (evt.agent_id === 5 && evt.output) {
+        const cnt = (evt.output.findings || []).length;
+        document.getElementById("stat-findings").textContent = cnt > 0 ? `${cnt} finding${cnt > 1 ? "s" : ""}` : "None";
+      }
+
+      buildPipeline();
+      if (S.selectedAgent === evt.agent_id) renderDetail(evt.agent_id);
+      break;
+
+    case "agent_error":
+      S.agentStatus[evt.agent_id] = "error";
+      log(`Agent ${evt.agent_id} error: ${evt.error}`, "err");
+      buildPipeline();
+      break;
+
+    case "pipeline_complete": {
+      S.phase = "done";
+      setProgress(100, "Complete");
+      clearInterval(S.elapsedTimer);
+      const elapsed = ((Date.now() - S.startTime) / 1000).toFixed(1);
+      document.getElementById("stat-elapsed").textContent = elapsed + "s";
+      document.getElementById("pipe-badge").className = "pipe-badge done";
+      document.getElementById("pipe-badge").textContent = "Complete";
+      setStatusStat("Done", "");
+
+      const report = evt.report || {};
+      const dec = (report.final_decision || "MANUAL_REVIEW").toUpperCase();
+      showDecision(dec, report);
+      log(`Pipeline complete — ${dec} in ${elapsed}s`, "ok");
+      buildPipeline();
+      break;
+    }
+
+    case "pipeline_error":
+      S.phase = "error";
+      clearInterval(S.elapsedTimer);
+      document.getElementById("pipe-badge").className = "pipe-badge";
+      document.getElementById("pipe-badge").textContent = "Error";
+      setStatusStat("Error", "");
+      log(`Pipeline error: ${evt.error}`, "err");
+      break;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DECISION PANEL
+// ═══════════════════════════════════════════════════════════════════
+
+function showDecision(dec, report) {
+  const sec = document.getElementById("decision-section"); sec.style.display = "block";
+  const box = document.getElementById("decision-box");
+  const cls = dec === "APPROVE" ? "approve" : dec === "REJECT" ? "reject" : "review";
+  box.className = `decision-box ${cls} visible`;
+
+  document.getElementById("d-label").textContent = "Final decision";
+  document.getElementById("d-name").textContent = dec === "APPROVE" ? "Approved for onboarding" :
+    dec === "REJECT" ? "Rejected — do not onboard" : "Manual review required";
+  document.getElementById("d-rationale").textContent = report.decision_rationale || "";
+
+  const confEl = document.getElementById("d-conflicts"); confEl.innerHTML = "";
+  const esc = report.escalation_reasons || [];
+  if (esc.length) {
+    esc.forEach(r => {
+      const d = document.createElement("div"); d.className = "escalation-row"; d.textContent = r;
+      confEl.appendChild(d);
+    });
+  }
+
+  // A7 conflicts
+  const a7 = report.agent_outputs?.agent_7 || {};
+  const conflicts = a7.conflicts || [];
+  if (conflicts.length) {
+    const d = document.createElement("div"); d.className = "conflict-row";
+    d.textContent = `⚠ ${conflicts.length} conflict${conflicts.length > 1 ? "s" : ""}: ${conflicts.join(" | ")}`;
+    confEl.appendChild(d);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════════════
+
+function setProgress(pct, label) {
+  const bar = document.getElementById("pbar");
+  if (pct !== null) { bar.style.width = pct + "%"; if (pct >= 100) bar.classList.add("done"); }
+  if (label) document.getElementById("pbar-label").textContent = label;
+}
+
+function setStatusStat(txt, cls) {
+  const el = document.getElementById("stat-status");
+  el.textContent = txt;
+  el.className = "stat-value " + cls;
+}
+
+function log(msg, cls) {
+  const ls = document.getElementById("log-stream");
+  const d = document.createElement("div");
+  d.className = "log-line " + (cls || "");
+  d.textContent = `[${new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"})}] ${msg}`;
+  ls.appendChild(d);
+  while (ls.children.length > 6) ls.removeChild(ls.firstChild);
+  ls.scrollTop = ls.scrollHeight;
+}
+
+function resetAll(full = true) {
+  if (S.evtSource) { S.evtSource.close(); S.evtSource = null; }
+  clearInterval(S.elapsedTimer);
+  Object.assign(S, { phase: "idle", agentStatus: {}, agentOutput: {}, agentStart: {}, agentDuration: {}, selectedAgent: null, doneCt: 0, startTime: null });
+  document.getElementById("run-btn").disabled = false;
+  document.getElementById("reset-btn").style.display = "none";
+  document.getElementById("pbar-wrap").style.display = "none";
+  document.getElementById("pbar-meta").style.display = "none";
+  document.getElementById("pbar").style.width = "0%";
+  document.getElementById("pbar").classList.remove("done");
+  document.getElementById("pipe-badge").className = "pipe-badge";
+  document.getElementById("pipe-badge").textContent = "Idle";
+  document.getElementById("stat-status").textContent = "Idle";
+  document.getElementById("stat-status").className = "stat-value";
+  document.getElementById("stat-done").textContent = "0 / 8";
+  document.getElementById("stat-elapsed").textContent = "—";
+  document.getElementById("stat-findings").textContent = "—";
+  document.getElementById("decision-section").style.display = "none";
+  document.getElementById("detail-panel").classList.remove("visible");
+  buildPipeline();
+}
+</script>
+
+</body>
+</html>

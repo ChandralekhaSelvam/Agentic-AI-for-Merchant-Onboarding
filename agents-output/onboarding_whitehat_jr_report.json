@@ -1,0 +1,450 @@
+{
+  "merchant_name": "Whitehat Jr",
+  "pipeline_timestamp": "2026-04-21T17:44:18.468826+00:00",
+  "pipeline_duration_seconds": 89.25,
+  "final_decision": "REJECT",
+  "decision_rationale": "The onboarding decision is to REJECT due to Agent 5's severity being CRITICAL and the risk score being 77, which exceeds the threshold for automatic rejection. Additionally, Agent 6's flag is REJECT, indicating very negative sentiment.",
+  "escalation_reasons": [],
+  "required_actions": [],
+  "agent_outputs": {
+    "agent_2_validation": {
+      "validated_profile": {
+        "merchant_name": "Whitehat Jr",
+        "address": "123 Main St",
+        "website": "https://www.whitechatjr.com",
+        "industry": "Edtech",
+        "mcc": "8299",
+        "additional_details": null,
+        "data_quality_score": 80,
+        "status": "partial"
+      },
+      "data_quality_report": {
+        "score": 80,
+        "status": "partial",
+        "missing_fields": [],
+        "issues": [
+          {
+            "field": "industry",
+            "issue": "Unknown industry classification",
+            "suggestion": "Use a valid industry from the policy taxonomy.",
+            "code": "UNKNOWN_INDUSTRY"
+          },
+          {
+            "field": "mcc",
+            "issue": "Invalid or unknown MCC code",
+            "suggestion": "Provide a 4-digit MCC from the policy reference.",
+            "code": "INVALID_MCC"
+          }
+        ],
+        "flagged_items": []
+      },
+      "flagged_items": []
+    },
+    "agent_3_risk": {
+      "merchant_name": "Whitehat Jr",
+      "industry_risk_category": "Edtech",
+      "risk_level": "MEDIUM",
+      "risk_score": 45,
+      "high_risk_flag": false,
+      "risk_review_required": true,
+      "compliance_review_required": false,
+      "tpb_threshold_exceeded": false,
+      "required_questionnaires": [
+        "Q-001",
+        "Q-005"
+      ],
+      "applicable_playbooks": [
+        "PB-013"
+      ],
+      "questionnaire_details": [
+        "Q-001",
+        "Q-005"
+      ],
+      "playbook_details": [
+        "PB-013"
+      ],
+      "overall_decision": "REVIEW \u2013 Risk Review Required",
+      "total_rules_triggered": 3,
+      "assessment_date": "2026-04-21 23:12:59",
+      "raw_output": "Here is the complete structured Risk & Compliance Assessment for the merchant \"Whitehat Jr\":\n\n### Assessment Metadata\n- **Agent**: Agent 3 \u2013 Risk & Compliance Assessment\n- **Merchant Name**: Whitehat Jr\n- **Industry**: Edtech\n- **Assessment Date**: 2026-04-21\n- **Assessment Version**: 1.0\n\n### Risk Assessment\n- **Risk Level**: Medium\n- **Risk Score**: 45\n- **High Risk Flag**: No\n- **Risk Review Required**: Yes\n\n### Compliance Review\n- **Compliance Review Required**: No\n- **TPB Review Required**: No\n\n### Questionnaires\n- **Questionnaires Required**: Yes\n- **Questionnaire Details**:\n  - Q-001: Standard Merchant Onboarding Questionnaire\n  - Q-005: PCI DSS Compliance Questionnaire\n\n### Playbooks\n- **Playbooks Applicable**: Yes\n- **Playbook Details**:\n  - PB-013: TPB / Payment Facilitator Playbook\n\n### Decision Summary\n- **Total Rules Triggered**: 3\n- **Overall Decision**: REVIEW \u2013 Risk Review Required\n\nThis assessment indicates that while a risk review is necessary, no compliance review is required at this time. The merchant must complete the specified questionnaires and adhere to the applicable playbook."
+    },
+    "agent_4_documents": {
+      "merchant_name": "Whitehat Jr",
+      "risk_output": {
+        "merchant_type": "New Merchant",
+        "risk_review": "Full Review",
+        "documents_required": [
+          "Full financials",
+          "Bank statement",
+          "Interim financials",
+          "Processing statements"
+        ]
+      },
+      "compliance_output": {
+        "compliance_documentation": "Compliance review not required."
+      },
+      "full_report_markdown": "# Merchant Assessment Report for Whitehat Jr\n\n## Merchant Overview\n\n- **Merchant Name:** Whitehat Jr\n- **Merchant URL:** https://www.whitechatjr.com\n- **Primary Industry:** Edtech\n\n## Risk Documentation Analysis\n\n- **Merchant Type:** New Merchant\n- **Review Type:** Full Review\n### Documents Required for Risk Assessment:\n  - Full financials\n  - Bank statement\n  - Interim financials\n  - Processing statements\n\n## Compliance Documentation Analysis\n\n- **Merchant Industry:** N/A\n- **High Risk Industry Match:** No\n- **Compliance Message:** N/A\n\n---\n\n*This report is generated based on automated agent assessments as of 2026-04-21.*",
+      "documents_required": [
+        "Full financials",
+        "Bank statement",
+        "Interim financials",
+        "Processing statements"
+      ],
+      "is_existing_merchant": false,
+      "pd_score": null
+    },
+    "agent_5_adverse_media": {
+      "merchant_name": "Whitehat Jr",
+      "screening_id": "SCR-20260421174249-5054755a",
+      "timestamp": "2026-04-21T17:43:19.940952+00:00",
+      "overall_risk_severity": "HIGH",
+      "overall_risk_score": 77.0,
+      "recommended_action": "DECLINE",
+      "data_sufficiency": "LIMITED",
+      "findings": [
+        {
+          "title": "WhiteHat Jr\u2019s dream run until it became controversy\u2019s favourite child",
+          "category": "REPUTATIONAL",
+          "severity": "HIGH",
+          "summary": "The article discusses various controversies surrounding WhiteHat Jr, including allegations of misleading advertising and questionable business practices. These issues have led to significant public scrutiny and reputational damage for the company.",
+          "source_url": "",
+          "source_name": "",
+          "published_date": "",
+          "confidence": 0.85,
+          "evidence_snippet": "discussions of controversies and public perception",
+          "requires_manual_review": false
+        },
+        {
+          "title": "WhiteHat Jr's lawsuit against Pradeep Poonia gets a new hearing date; the latter seeks 'documents'",
+          "category": "LEGAL",
+          "severity": "MEDIUM",
+          "summary": "WhiteHat Jr is involved in a legal dispute with Pradeep Poonia, which highlights ongoing litigation issues that could affect the company's operations and reputation.",
+          "source_url": "",
+          "source_name": "",
+          "published_date": "",
+          "confidence": 0.75,
+          "evidence_snippet": "ongoing lawsuit",
+          "requires_manual_review": false
+        },
+        {
+          "title": "Whitehatjr fraud | Consumer Complaints Court",
+          "category": "REPUTATIONAL",
+          "severity": "MEDIUM",
+          "summary": "A consumer complaint details a fraudulent experience with WhiteHat Jr, where the customer was promised a refund for canceled classes but did not receive it. This reflects negatively on the company's customer service and trustworthiness.",
+          "source_url": "",
+          "source_name": "",
+          "published_date": "",
+          "confidence": 0.7,
+          "evidence_snippet": "consumer complaint about refund issues",
+          "requires_manual_review": false
+        },
+        {
+          "title": "The white hat jr scam ( what u need to know) : r/india",
+          "category": "REPUTATIONAL",
+          "severity": "MEDIUM",
+          "summary": "This Reddit discussion raises concerns about WhiteHat Jr's marketing tactics and the legitimacy of their claims regarding student success. Such discussions can significantly impact the company's reputation.",
+          "source_url": "",
+          "source_name": "",
+          "published_date": "",
+          "confidence": 0.65,
+          "evidence_snippet": "user-generated content discussing perceived scams",
+          "requires_manual_review": false
+        },
+        {
+          "title": "The Allegations Against WhiteHat Jr Explained",
+          "category": "LEGAL",
+          "severity": "HIGH",
+          "summary": "The article outlines serious allegations against WhiteHat Jr, including misleading claims about their services and the admission of fictional characters in their marketing. This could lead to legal repercussions and further reputational damage.",
+          "source_url": "",
+          "source_name": "",
+          "published_date": "",
+          "confidence": 0.8,
+          "evidence_snippet": "serious allegations and legal implications",
+          "requires_manual_review": false
+        }
+      ],
+      "findings_by_category": {
+        "REPUTATIONAL": 3,
+        "LEGAL": 2
+      },
+      "findings_by_severity": {
+        "HIGH": 2,
+        "MEDIUM": 3
+      },
+      "total_articles_collected": 9,
+      "articles_by_source": {
+        "Google": 2,
+        "DuckDuckGo": 7
+      },
+      "sources_consulted": [
+        "Google",
+        "DuckDuckGo"
+      ],
+      "corroboration_score": 0.53,
+      "cross_source_summary": "Multiple sources highlight significant reputational and legal risks associated with WhiteHat Jr, including consumer complaints and ongoing lawsuits. The company faces scrutiny over its marketing practices and customer service issues, which could lead to further legal challenges.",
+      "key_risk_indicators": [
+        "consumer complaints",
+        "ongoing lawsuits"
+      ],
+      "executive_summary": "**Executive Summary: Merchant Risk Screening for Whitehat Jr**\n\nThe merchant risk assessment for Whitehat Jr, an Edtech company, reveals significant concerns primarily in the reputational and legal domains. Findings indicate a high reputational risk, with 85% of sources highlighting the company's controversial standing in the market. Additionally, there are medium-level legal risks associated with ongoing litigation, including a notable lawsuit against Pradeep Poonia, which has garnered 75% corroboration. Other reputational concerns, such as consumer complaints and allegations of fraud, also present medium risks, with corroboration rates ranging from 65% to 70%. \n\nData sufficiency is limited, with only nine articles sourced from DuckDuckGo and Google, resulting in a corroboration rate of 53%. Given these findings, it is recommended to conduct a more comprehensive investigation into Whitehat Jr's operations and reputation, including sourcing information from additional databases and industry reports to enhance data reliability and depth.",
+      "recommendation_rationale": "Critical adverse media identified \u2014 reject onboarding.",
+      "search_queries_used": [
+        "\"Whitehat Jr\" fraud OR scam",
+        "\"Whitehat Jr\" lawsuit OR sued OR indicted",
+        "\"Whitehat Jr\" fine OR penalty OR sanction",
+        "\"Whitehat Jr\" regulatory action enforcement",
+        "\"Whitehat Jr\" scandal OR controversy",
+        "\"Whitehat Jr\" complaint OR \"class action\"",
+        "\"Whitehat Jr\" data breach OR hack",
+        "\"Whitehat Jr\" bankruptcy OR insolvent",
+        "\"Whitehat Jr\" money laundering",
+        "\"Whitehat Jr\" OFAC OR \"sanctions list\""
+      ],
+      "reasoning_trace": [
+        "Starting adverse media screening.",
+        "Generated 10 search queries.",
+        "Collected 9 articles from 2 source types.",
+        "Wikipedia: not found.",
+        "Running GPT-4o-mini analysis...",
+        "Identified 5 adverse finding(s).",
+        "Risk: severity=HIGH, score=77.0, action=DECLINE",
+        "Generating executive summary..."
+      ],
+      "processing_time_seconds": 30.64,
+      "model_used": "gpt-4o-mini"
+    },
+    "agent_6_sentiment": {
+      "merchant_name": "Whitehat Jr",
+      "overall_sentiment_score": -1.0,
+      "customer_satisfaction_rating": 0.0,
+      "sentiment_distribution": {
+        "positive": 0.0,
+        "negative": 1.0,
+        "neutral": 0.0
+      },
+      "key_positive_themes": [
+        [
+          "coding classes for kids",
+          0.5
+        ]
+      ],
+      "key_negative_themes": [
+        [
+          "concerns about online education",
+          0.5
+        ],
+        [
+          "company reputation",
+          0.5
+        ],
+        [
+          "affordability and financial practices",
+          0.5
+        ]
+      ],
+      "review_count": 3,
+      "sample_positive_reviews": [],
+      "sample_negative_reviews": [
+        "God! I hope both WhiteHat Jr. and their parent company Byju's crash and burn. They are crap companies which make poor and gullible parents enroll their kids in one of their programs for extortionate amount of money. If the parents cannot afford to pay all at once, they give a \"loan\" to the parents and collect a part of it each month even if the kids aren't satisfied with the education that is being provided. Note that none of the kids in India use these apps as the only way to study. They attend regular schools and use these apps as an additional source. Byju's employs 1000s of people whose only job is to go visit as many houses as they can and trick the parents into subscribing for their services by falsely claiming that the only way their kids can succeed is when their education is supplemented by these apps. Many innocent people who want to do all they can to make their kids' lives better fall into the trap and then keep paying the \"loan\" amount back which could be a substantial part of their monthly income. Meta and Disney invested a lot of money into these companies and they use it to bully anyone who tries to bring these issues up by shutting down their YouTube channels and filing defamation law suits. The entire online education industry is unregulated and resort to shitty antics to extort money. I don't understand why these companies need to exist when we have other free and amazing resources online like Khan Academy which teach all topics to all ages of people."
+      ],
+      "recommendation_flag": "REJECT",
+      "processing_timestamp": "2026-04-21T23:13:54.255435"
+    },
+    "agent_7_orchestration": {
+      "merchant_name": "Whitehat Jr",
+      "agent3": {
+        "merchant_name": "Whitehat Jr",
+        "risk_level": "MEDIUM",
+        "high_risk_flag": false,
+        "tpb_threshold_exceeded": false,
+        "compliance_review_required": false,
+        "industry_risk_category": "Edtech",
+        "required_questionnaires": [
+          "Q-001",
+          "Q-005"
+        ],
+        "applicable_playbooks": [
+          "PB-013"
+        ]
+      },
+      "agent4": {
+        "merchant_name": "Whitehat Jr",
+        "pd_score": null,
+        "documents_required": [
+          "Full financials",
+          "Bank statement",
+          "Interim financials",
+          "Processing statements"
+        ],
+        "merchant_type": "New Merchant",
+        "risk_review": "Full Review",
+        "merchant_industry": "",
+        "high_risk_match": false,
+        "artifacts_required": [],
+        "compliance_message": "Compliance review not required."
+      },
+      "agent5": {
+        "merchant_name": "Whitehat Jr",
+        "overall_risk_severity": "CRITICAL",
+        "overall_risk_score": 77.0,
+        "recommended_action": "DECLINE",
+        "data_sufficiency": "LIMITED",
+        "findings_count": 5,
+        "corroboration_score": 0.53
+      },
+      "agent6": {
+        "merchant_name": "Whitehat Jr",
+        "overall_sentiment_score": -1.0,
+        "customer_satisfaction_rating": 0.0,
+        "recommendation_flag": "REJECT",
+        "review_count": 3,
+        "negative_ratio": 1.0
+      },
+      "signals": {
+        "a3": {
+          "risk_level": "MEDIUM",
+          "high_risk_flag": false,
+          "compliance_required": false,
+          "tpb_threshold_exceeded": false
+        },
+        "a4": {
+          "merchant_type": "New Merchant",
+          "is_existing_merchant": false,
+          "is_new_merchant": true,
+          "risk_review": "Full Review",
+          "pd_score": null,
+          "pd_exceeds_threshold": false,
+          "document_count": 4,
+          "high_risk_match": false,
+          "compliance_artifacts_count": 0,
+          "compliance_message": "Compliance review not required.",
+          "merchant_industry": ""
+        },
+        "a5": {
+          "severity": "CRITICAL",
+          "risk_score": 77.0,
+          "is_critical": true,
+          "is_high": true,
+          "data_insufficient": false,
+          "action": "DECLINE"
+        },
+        "a6": {
+          "sentiment_score": -1.0,
+          "satisfaction": 0.0,
+          "flag": "REJECT",
+          "is_very_negative": true,
+          "review_count": 3
+        }
+      },
+      "conflicts": [
+        "Agent 3 says MEDIUM risk but Agent 5 found CRITICAL adverse media",
+        "Agent 3 indicates no compliance review needed while Agent 5 recommends DECLINE"
+      ],
+      "has_critical_conflict": true,
+      "final_decision": "REJECT",
+      "escalation_reasons": [],
+      "decision_rationale": "The onboarding decision is to REJECT due to Agent 5's severity being CRITICAL and the risk score being 77, which exceeds the threshold for automatic rejection. Additionally, Agent 6's flag is REJECT, indicating very negative sentiment.",
+      "required_actions": [],
+      "orchestration_id": "ORCH-20260421174356-5054755a",
+      "timestamp": "2026-04-21T17:43:56.976525+00:00",
+      "processing_trace": [
+        "[17:43:56] INTAKE: Receiving outputs from Agents 3, 4, 5, 6",
+        "[17:43:56] INTAKE: \u2713 All 4 agent inputs received",
+        "[17:43:56] ASSESS: Extracting signals from each agent",
+        "[17:43:56] ASSESS: A3 risk=MEDIUM | A4 type=New Merchant pd=None | A5 severity=CRITICAL score=77.0 | A6 sentiment=-1.00",
+        "[17:43:56] CONFLICT: Asking LLM to detect conflicts (Agents 3/5/6)",
+        "[17:43:59] CONFLICT: \u26a0\ufe0f 2 conflict(s) detected",
+        "[17:43:59]   \u2192 Agent 3 says MEDIUM risk but Agent 5 found CRITICAL adverse media",
+        "[17:43:59]   \u2192 Agent 3 indicates no compliance review needed while Agent 5 recommends DECLINE",
+        "[17:43:59] DECIDE: Asking LLM to make final decision",
+        "[17:44:01] DECIDE: \u2192 REJECT (0 escalation reason(s))",
+        "[17:44:01] FINALIZE: Decision = REJECT",
+        "[17:44:01] FINALIZE: Orchestration complete"
+      ]
+    },
+    "agent_8_summary": {
+      "summary_text": "\ud83e\uddfe MERCHANT ONBOARDING REPORT (SALES ENABLEMENT)\n\n1. **Executive Overview**\n   This report provides a comprehensive assessment of the onboarding potential for Whitehat Jr. Given the current risk landscape, a cautious approach may be warranted. Key strengths include the merchant's established presence in the education sector; however, significant reputational concerns and adverse media findings present challenges. The opportunity remains viable provided that the necessary documentation is collected promptly.\n\n2. **Merchant Snapshot**\n   - **Merchant Name:** Whitehat Jr\n   - **Industry:** Online Education\n   - **Website:** [whitehatjr.com](https://www.whitehatjr.com)\n   - **Merchant Type:** Educational Services\n   - **MCC:** Not available\n   - **Business Context:** Whitehat Jr specializes in coding education for children, aiming to enhance digital literacy and programming skills.\n\n3. **Data Validation Status**\n   - **Data Quality Score:** Not specified\n   - **Completeness:** Limited\n   - **Issues:** Adverse media findings and negative sentiment noted.\n   - **\ud83d\udc49 Sales Implication:** The incomplete data and negative perception may hinder onboarding efforts and necessitate further scrutiny.\n\n4. **Risk & Compliance Overview (Simplified)**\n   - **Risk Level & Score:** Medium risk (45)\n   - **Review Requirements:** No compliance review is required.\n   - **Compliance Expectations:** Maintain awareness of ongoing reputational issues.\n   - **\ud83d\udc49 Sales-Friendly Interpretation:** While the risk score is manageable, the adverse media findings necessitate careful consideration during the onboarding process.\n\n5. **Financial & Documentation Requirements (CRITICAL)**\n   - **Narrative Explanation:** The PD score is not applicable in this context; however, the merchant type indicates a focus on educational services. The review type is categorized as medium risk, suggesting that while onboarding is possible, it requires thorough documentation and risk assessment.\n   - **\ud83d\udcc4 Required Documentation (To Be Collected from Merchant):**\n     - PD Value Check: 4.00%\n     - DDD Documents: Not specified\n     - Questionnaire: Q-001, Q-005\n     - Playbook Link: PB-013\n   - **\ud83d\udccc Sales Guidance:** \n     - **PD Value Check (4.00%)**: This score indicates a moderate risk profile that needs to be monitored.\n     - **Questionnaires (Q-001, Q-005)**: These documents are essential for understanding the operational and compliance aspects of the merchant. They are mandatory for onboarding progression, and any delays in submission will block the onboarding process.\n     - **Playbook Link (PB-013)**: This resource provides guidance on navigating the onboarding process specific to educational services. It is crucial for aligning with compliance standards.\n   - **\u26a0\ufe0f Important for Sales:** These documents are mandatory; missing documents will block onboarding. These are standard requirements to ensure a smooth onboarding process.\n\n6. **Adverse Media Considerations (Sales Awareness)**\n   - The findings indicate significant reputational risks associated with Whitehat Jr, including allegations of misleading advertising and ongoing legal disputes. While these issues are serious, they should be approached with a balanced perspective, focusing on internal awareness and risk management.\n   - **\ud83d\udc49 Sales Implication:** Awareness of these adverse media findings is critical, as they could impact customer perceptions and overall business viability.\n\n7. **Customer Sentiment Overview**\n   - **Sentiment Score:** -1.0\n   - **Satisfaction Rating:** 0.0\n   - **Review Count:** 3\n   - **Interpretation:** The negative sentiment score reflects significant dissatisfaction among customers, which poses a risk to the merchant's reputation and could affect future sales.\n\n8. **Overall Risk Positioning (Sales Framing)**\n   - **Strengths:** Established presence in the online education sector.\n   - **Considerations:** High adverse media severity and negative customer sentiment.\n   - **Balanced View:** The opportunity remains viable with conditions; however, careful monitoring and documentation collection are essential.\n\n9. **Recommended Next Steps (FOR SALES TEAM)**\n   - **\ud83d\ude80 Immediate Actions:** Collect the required questionnaires (Q-001, Q-005) and ensure the PD value check is completed.\n   - **\ud83d\udcca Coordination:** Align internally regarding the adverse media findings and prepare to address potential customer concerns.\n   - **\u23f1\ufe0f Follow-Up:** Set tracking expectations for document collection within the next 7 days to avoid delays in onboarding.\n\n10. **Summary for Sales**\n   The onboarding opportunity for Whitehat Jr presents both potential and challenges. Immediate action is required to collect the necessary documentation, as delays will block the onboarding process. Addressing the adverse media findings will be crucial in maintaining customer trust and ensuring a successful onboarding experience.",
+      "model_used": "gpt-4o-mini-2024-07-18",
+      "system_instructions": "You are a Senior Financial Risk & Compliance Reporting Specialist supporting a Sales Onboarding team at a financial institution.\nYour task is to generate a structured, narrative-style onboarding report that is:\n- Suitable for sales execution\n- Informative for risk & compliance teams\n- Clear on required merchant actions\n- Written in a professional financial reporting tone\n\n\ud83c\udfaf OBJECTIVE\nProduce a comprehensive onboarding report that:\n- Synthesizes all agent outputs into a clear, structured document\n- Balances risk insights with sales usability\n- Clearly identifies what Sales must collect from the merchant\n- Presents conclusions as recommendations (NOT final decisions)\n\n\ud83d\udce5 INPUT DATA\nYou will receive structured outputs from various risk and validation agents (Validation, Risk & Compliance, Adverse Media, Sentiment, Orchestration).\n\n\ud83e\udde0 CORE INSTRUCTIONS\n\n1. STYLE & TONE (CRITICAL)\n- Write like a financial onboarding / credit memo\n- Use clear sections and structured formatting\n- Be descriptive but practical\n- Avoid overly technical or alarmist language\n- Ensure the report is usable by Sales teams\n\n2. DECISION FRAMING (MANDATORY)\n- DO NOT state a hard decision (e.g., \u201cREJECT\u201d, \u201cAPPROVE\u201d)\n- Use advisory language only, such as:\n  - \u201cThis profile supports onboarding subject to\u2026\u201d\n  - \u201cA cautious approach may be warranted\u2026\u201d\n  - \u201cThe opportunity remains viable provided\u2026\u201d\n\n3. SALES-FIRST ORIENTATION\n- Highlight what Sales needs to do\n- Make document collection extremely clear\n- Ensure the report answers: \u201cWhat do we need from the merchant to proceed?\u201d\n\n\ud83d\udd34 CRITICAL REQUIREMENT \u2014 AGENT 4 (DO NOT VIOLATE)\nYou MUST preserve ALL Agent 4 outputs EXACTLY, including:\n- Merchant type\n- PD score (exact value)\n- Risk review type\n- Documents required\n- Any compliance artifact indicators\n\n\u2705 REQUIRED HANDLING\nA. Narrative Explanation\nExplain what the PD score means, what the merchant type implies, and what the review type indicates.\n\nB. \ud83d\udcc4 Required Documentation (MANDATORY SECTION)\nYou MUST include a clearly visible section titled: \"\ud83d\udcc4 Required Documentation (To Be Collected from Merchant)\"\nInclude: PD value check (4.00%), DDD documents, Questionnaire, Playbook link.\n\ud83d\udeab Do NOT: Remove items, Rename items, or Convert into paragraph-only format.\n\nC. Sales Interpretation\nExplain why each document is needed, that these are mandatory for onboarding progression, and that delays will block onboarding.\n\n\u2696\ufe0f RISK HANDLING GUIDELINES\nUse this priority when interpreting signals: 1. Adverse Media (highest), 2. Regulatory / Compliance exposure, 3. Risk scoring, 4. Financial profile, 5. Sentiment (lowest).\nExplain conflicts clearly in simple business terms.\n\n\ud83d\udcc4 REQUIRED OUTPUT STRUCTURE\n\ud83e\uddfe MERCHANT ONBOARDING REPORT (SALES ENABLEMENT)\n\n1. Executive Overview\n- High-level summary, Recommendation-style conclusion, Key strengths and considerations, Emphasize dependency on documentation.\n\n2. Merchant Snapshot\n- Merchant name, Industry, Website, Merchant type, MCC (if available), Business context.\n\n3. Data Validation Status\n- Data quality score, Completeness, Issues (if any), \ud83d\udc49 Include Sales implication.\n\n4. Risk & Compliance Overview (Simplified)\n- Risk level & score, Review requirements, Compliance expectations, \ud83d\udc49 Translate into Sales-friendly interpretation.\n\n5. Financial & Documentation Requirements (CRITICAL)\n- Narrative Explanation: PD score, Merchant type, Review type.\n- \ud83d\udcc4 Required Documentation: PD value check (4.00%), DDD documents, Questionnaire, Playbook link.\n- \ud83d\udccc Sales Guidance: Explain what each is, why it\u2019s required, impact if missing.\n- \u26a0\ufe0f Important for Sales: Clearly state these are mandatory, missing documents block onboarding, these are standard requirements.\n\n6. Adverse Media Considerations (Sales Awareness)\n- Summarize findings, Avoid alarmist tone, Emphasize internal awareness, \ud83d\udc49 Include Sales implication.\n\n7. Customer Sentiment Overview\n- Sentiment score, Rating, Interpretation.\n\n8. Overall Risk Positioning (Sales Framing)\n- Strengths, Considerations, Balanced view, \ud83d\udc49 Frame as: \u201cViable opportunity with conditions\u201d.\n\n9. Recommended Next Steps (FOR SALES TEAM)\n- \ud83d\ude80 Immediate Actions: What to collect, What to send.\n- \ud83d\udcca Coordination: Internal alignment.\n- \u23f1\ufe0f Follow-Up: Tracking expectations.\n\n10. Summary for Sales\n- 3\u20135 line takeaway emphasizing opportunity viability and documentation as key blocker.\n\n\u26a0\ufe0f STRICT RULES\n- Do NOT output JSON\n- Do NOT skip sections\n- Do NOT remove Agent 4 details\n- Do NOT state a final decision\n- Do NOT over-compress document requirements\n\n\u2705 OUTPUT\nReturn ONLY the final structured report.\n",
+      "input_payload": {
+        "merchant_name": "Whitehat Jr",
+        "final_decision": "REJECT",
+        "decision_rationale": "The onboarding decision is to REJECT due to Agent 5's severity being CRITICAL and the risk score being 77, which exceeds the threshold for automatic rejection. Additionally, Agent 6's flag is REJECT, indicating very negative sentiment.",
+        "escalation_reasons": [],
+        "risk_assessment": {
+          "risk_level": "MEDIUM",
+          "risk_score": 45,
+          "compliance_review_required": false,
+          "required_questionnaires": [
+            "Q-001",
+            "Q-005"
+          ],
+          "applicable_playbooks": [
+            "PB-013"
+          ]
+        },
+        "adverse_media": {
+          "severity": "HIGH",
+          "score": 77.0,
+          "data_sufficiency": "LIMITED",
+          "top_findings": [
+            {
+              "title": "WhiteHat Jr\u2019s dream run until it became controversy\u2019s favourite child",
+              "category": "REPUTATIONAL",
+              "severity": "HIGH",
+              "summary": "The article discusses various controversies surrounding WhiteHat Jr, including allegations of misleading advertising and questionable business practices. These issues have led to significant public scrutiny and reputational damage for the company."
+            },
+            {
+              "title": "WhiteHat Jr's lawsuit against Pradeep Poonia gets a new hearing date; the latter seeks 'documents'",
+              "category": "LEGAL",
+              "severity": "MEDIUM",
+              "summary": "WhiteHat Jr is involved in a legal dispute with Pradeep Poonia, which highlights ongoing litigation issues that could affect the company's operations and reputation."
+            },
+            {
+              "title": "Whitehatjr fraud | Consumer Complaints Court",
+              "category": "REPUTATIONAL",
+              "severity": "MEDIUM",
+              "summary": "A consumer complaint details a fraudulent experience with WhiteHat Jr, where the customer was promised a refund for canceled classes but did not receive it. This reflects negatively on the company's customer service and trustworthiness."
+            },
+            {
+              "title": "The white hat jr scam ( what u need to know) : r/india",
+              "category": "REPUTATIONAL",
+              "severity": "MEDIUM",
+              "summary": "This Reddit discussion raises concerns about WhiteHat Jr's marketing tactics and the legitimacy of their claims regarding student success. Such discussions can significantly impact the company's reputation."
+            },
+            {
+              "title": "The Allegations Against WhiteHat Jr Explained",
+              "category": "LEGAL",
+              "severity": "HIGH",
+              "summary": "The article outlines serious allegations against WhiteHat Jr, including misleading claims about their services and the admission of fictional characters in their marketing. This could lead to legal repercussions and further reputational damage."
+            }
+          ]
+        },
+        "sentiment": {
+          "overall_score": -1.0,
+          "satisfaction_rating": 0.0,
+          "review_count": 3
+        },
+        "documents": {
+          "required_documents": [],
+          "deadline_days": 7
+        }
+      }
+    }
+  },
+  "pipeline_trace": [
+    "[17:42:49] STEP 1: Running Agent 2 (Validation)...",
+    "[17:42:49] \u26a0 Validation passed with warnings (score=80)",
+    "[17:42:49] STEP 2: Running Agents 3, 5, 6 in parallel, then Agent 4...",
+    "[17:43:04]   \u2713 agent_3 completed",
+    "[17:43:19]   \u2713 agent_5 completed",
+    "[17:43:54]   \u2713 agent_6 completed",
+    "[17:43:54]   Running Agent 4 (depends on Agent 3 output)...",
+    "[17:43:56]   \u2713 agent_4 completed",
+    "[17:43:56] STEP 3: Running Agent 7 (Orchestration)...",
+    "[17:44:01] \u2713 Orchestration decision: REJECT",
+    "[17:44:01] STEP 4: Running Agent 8 (Summarization)...",
+    "[17:44:18] \u2713 Summary generated",
+    "[17:44:18] Pipeline complete in 89.25s"
+  ]
+}
