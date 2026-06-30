@@ -57,7 +57,7 @@ load_dotenv()
 # =============================================================================
 
 DB_PATH = "merchant.db"
-COMPLIANCE_MD_PATH = "docs/compliance_requirements.md"
+COMPLIANCE_MD_PATH = "data/compliance_requirements.md"
 MODEL_NAME = "gpt-4o-mini"
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")

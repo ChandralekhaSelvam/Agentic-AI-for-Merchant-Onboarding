@@ -28,10 +28,11 @@
 5. [Web UI & API Server](#5-web-ui--api-server)
 6. [Installation & Setup](#6-installation--setup)
 7. [Running the System](#7-running-the-system)
-8. [Dependencies](#8-dependencies)
-9. [Configuration & Environment Variables](#9-configuration--environment-variables)
-10. [Troubleshooting](#10-troubleshooting)
-11. [Security & Compliance Considerations](#11-security--compliance-considerations)
+8. [Application Demo](#-application-demo)
+9. [Dependencies](#9-dependencies)
+10. [Configuration & Environment Variables](#10-configuration--environment-variables)
+11. [Troubleshooting](#11-troubleshooting)
+12. [Security & Compliance Considerations](#12-security--compliance-considerations)
 
 ---
 
@@ -667,10 +668,13 @@ merchant-onboarding/
 ├── data/
 │   ├── policy_data.xlsx          # Policy rules (required for Agents 2, 3)
 │   ├── merchants.xlsx            # Merchant details
+│   ├── compliance_requirements.md # Auto-created by Agent 4
 │   └── merchants.db              # Auto-created by Agent 1
-├── docs/
-│   └── compliance_requirements.md  # Auto-created by Agent 4
+├── demo/
+│   ├── demo.gif
+│   ├── demo1.gif
 ├── requirements.txt
+├── setup_instructions.md
 └── .env                          # API keys (not committed to VCS)
 ```
 
@@ -764,9 +768,25 @@ print(result['decision_rationale'])
 
 ---
 
-## 8. Dependencies
+## 8. Application Demo
 
-### 8.1 Full `requirements.txt` Reference
+### Merchant Paypal Onboarding Demo 
+
+<p align="center">
+  <img src="demo/demo.gif" alt="Application demo" width="800"/>
+</p>
+
+### Merchant Fresh Bites Cafe Onboarding Demo
+
+<p align="center">
+  <img src="demo/demo1.gif" alt="Application demo" width="800"/>
+</p>
+
+---
+
+## 9. Dependencies
+
+### 9.1 Full `requirements.txt` Reference
 
 | Package | Version | Used By |
 |---|---|---|
@@ -791,16 +811,16 @@ print(result['decision_rationale'])
 
 ---
 
-## 9. Configuration & Environment Variables
+## 10. Configuration & Environment Variables
 
-### 9.1 Required Environment Variables
+### 10.1 Required Environment Variables
 
 | Variable | Required | Description |
 |---|:---:|---|
 | `OPENAI_API_KEY` | **YES** | OpenAI API key for GPT-4o-mini (Agents 3, 5, 6, 7, 8) |
 | `PORT` | No (default: `5050`) | Port for the Flask web UI server |
 
-### 9.2 Per-Agent Configuration
+### 10.2 Per-Agent Configuration
 
 | Agent | Config Variable | Notes |
 |:---:|---|---|
@@ -817,9 +837,9 @@ print(result['decision_rationale'])
 
 ---
 
-## 10. Troubleshooting
+## 11. Troubleshooting
 
-### 10.1 Common Issues & Resolutions
+### 11.1 Common Issues & Resolutions
 
 | Issue | Resolution |
 |---|---|
@@ -836,11 +856,11 @@ print(result['decision_rationale'])
 | **Transformer model OOM error** | Reduce batch sizes in Agent 6 or upgrade to a machine with >= 16 GB RAM. Disable TensorFlow: uninstall `tensorflow` from `requirements.txt` |
 | **Agent 7 returns `MANUAL_REVIEW` unexpectedly** | This is expected when agents disagree — check `agent_outputs` in the final report JSON for conflict details |
 
-### 10.2 Debug Mode
+### 11.2 Debug Mode
 
 Agent 3 runs with `verbose=True` in the `AgentExecutor`, printing every LangChain tool invocation to stdout. This is useful for debugging policy rule evaluation. To silence it, set `verbose=False` in the `agent_executor` initialization.
 
-### 10.3 Agent-Level Testing
+### 11.3 Agent-Level Testing
 
 Every agent module contains a `__main__` block with test cases that can be run independently. This allows isolated testing of individual components without running the full pipeline. Test cases cover low-risk, medium-risk, high-risk, and incomplete data scenarios.
 
@@ -853,23 +873,23 @@ python agents/agent_4_document_req_decision_logic_agent.py  # Amazon + BetKing
 
 ---
 
-## 11. Security & Compliance Considerations
+## 12. Security & Compliance Considerations
 
-### 11.1 Data Handling
+### 12.1 Data Handling
 
 - Merchant data is persisted in local SQLite databases — not transmitted to third parties beyond the OpenAI API
 - All OpenAI API calls transmit merchant name, website, and industry for analysis — ensure your OpenAI data usage agreements cover this
 - The system does not store API keys in code — always use environment variables via `.env`
 - Public web scraping in Agents 5 and 6 is read-only and does not create accounts or submit forms
 
-### 11.2 Decision Auditability
+### 12.2 Decision Auditability
 
 - Every pipeline run produces a full JSON report with timestamped `pipeline_trace`
 - Agent 7 generates an `audit_id` (SHA-256 hash) for each decision for traceability
 - All agent intermediate outputs are preserved in the `agent_outputs` section of the final report
 - Agent 8 never states a hard decision — all outputs use advisory language to preserve human oversight
 
-### 11.3 Production Hardening Checklist
+### 12.3 Production Hardening Checklist
 
 - [ ] Replace SQLite with PostgreSQL or a managed database for concurrent access
 - [ ] Replace the seed merchant database with a BigQuery / data warehouse integration for real PD scores
